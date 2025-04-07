@@ -1,3 +1,4 @@
+import OrbitingPlanet from "./(home)/orbiting-planets";
 import People from "./(home)/people";
 
 const people = [
@@ -37,6 +38,7 @@ export default function Home() {
   return (
     <div className="pt-6">
       <People people={people} />
+      <OrbitingPlanet />
     </div>
   );
 }
