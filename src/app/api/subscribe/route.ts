@@ -1,4 +1,4 @@
-export const subscriptions: unknown[] = [];
+import { subscriptions } from "@/app/subscriptions";
 
 export async function POST(request: Request) {
   const body = await request.json();

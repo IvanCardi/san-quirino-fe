@@ -1,5 +1,5 @@
+import { subscriptions } from "@/app/subscriptions";
 import webpush from "web-push";
-import { subscriptions } from "../subscribe/route";
 
 webpush.setVapidDetails(
   "mailto:ivancardillo1996@gmail.com",

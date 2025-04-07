@@ -1,6 +1,6 @@
 "use server";
 
-import webpush from "web-push";
+import webpush, { PushSubscription } from "web-push";
 
 webpush.setVapidDetails(
   "mailto:ivancardillo1996@gmail.com",
