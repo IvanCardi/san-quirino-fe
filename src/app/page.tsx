@@ -1,77 +1,143 @@
 "use client";
-import { motion, useAnimationFrame } from "framer-motion";
-import { useState } from "react";
 
-const OrbitingPlanet = () => {
-  const [angle, setAngle] = useState(0);
+import { useState, useEffect } from "react";
+import { subscribeUser, unsubscribeUser, sendNotification } from "./actions";
 
-  // Slow down the animation by changing the angle increment
-  const speedFactor = 0.1; // Smaller value makes the animation slower
-  useAnimationFrame(() => {
-    setAngle((prev) => (prev + speedFactor) % 360); // Increment by a smaller amount for slower animation
-  });
+function urlBase64ToUint8Array(base64String: string) {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
 
-  const radiusX = 250; // Horizontal radius
-  const radiusY = 150; // Vertical radius
-  const centerX = 0;
-  const centerY = 0;
-  const numberOfObjects = 8; // Number of objects orbiting
-  const angleStep = 360 / numberOfObjects; // Angle difference between objects
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
 
-  const orbitingObjects = Array.from(
-    { length: numberOfObjects },
-    (_, index) => {
-      // Calculate angle for each object, spaced evenly
-      const objectAngle = angle + index * angleStep;
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
 
-      // Calculate X, Y positions for each object
-      const x = parseFloat(
-        (centerX + radiusX * Math.cos(objectAngle * (Math.PI / 180))).toFixed(6)
-      );
-      const y = parseFloat(
-        (centerY + radiusY * Math.sin(objectAngle * (Math.PI / 180))).toFixed(6)
-      );
-
-      // Depth effect: Scale & opacity based on Y position
-      const scale = 1 + (y + radiusY) / (2 * radiusY); // Smaller when at the top
-      const opacity = 0.8 + ((y + radiusY) / (2 * radiusY)) * 0.4; // More transparent when at the top
-      const zIndex = y > 0 ? 2 : 0; // In front when at bottom, behind when at top
-
-      return {
-        x,
-        y,
-        scale,
-        opacity,
-        zIndex,
-      };
-    }
+function PushNotificationManager() {
+  const [isSupported, setIsSupported] = useState(false);
+  const [subscription, setSubscription] = useState<PushSubscription | null>(
+    null
   );
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator && "PushManager" in window) {
+      setIsSupported(true);
+      registerServiceWorker();
+    }
+  }, []);
+
+  async function registerServiceWorker() {
+    const registration = await navigator.serviceWorker.register("/sw.js", {
+      scope: "/",
+      updateViaCache: "none",
+    });
+    const sub = await registration.pushManager.getSubscription();
+    setSubscription(sub);
+  }
+
+  async function subscribeToPush() {
+    const registration = await navigator.serviceWorker.ready;
+    const sub = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(
+        process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!
+      ),
+    });
+    setSubscription(sub);
+    const serializedSub = JSON.parse(JSON.stringify(sub));
+    await subscribeUser(serializedSub);
+  }
+
+  async function unsubscribeFromPush() {
+    await subscription?.unsubscribe();
+    setSubscription(null);
+    await unsubscribeUser();
+  }
+
+  async function sendTestNotification() {
+    if (subscription) {
+      await sendNotification(message);
+      setMessage("");
+    }
+  }
+
+  if (!isSupported) {
+    return <p>Push notifications are not supported in this browser.</p>;
+  }
 
   return (
-    <div className="relative flex items-center justify-center h-screen bg-white">
-      {/* Central Logo */}
-      <div className="relative w-1 h-1 bg-black rounded-full flex items-center justify-center shadow-lg z-1">
-        <div className="absolute top-[-120px] w-[200px] h-[200px] bg-black rounded-full flex items-center justify-center shadow-lg z-1">
-          <span className="text-white font-bold">Logo</span>
-        </div>
-      </div>
-
-      {/* Orbiting Planets with 3D effect */}
-      {orbitingObjects.map((planet, index) => (
-        <motion.div
-          key={index}
-          className="absolute w-10 h-10 bg-blue-500 rounded-full shadow-lg"
-          style={{
-            x: planet.x,
-            y: planet.y,
-            scale: planet.scale,
-            opacity: planet.opacity,
-            zIndex: planet.zIndex,
-          }}
-        />
-      ))}
+    <div>
+      <h3>Push Notifications</h3>
+      {subscription ? (
+        <>
+          <p>You are subscribed to push notifications.</p>
+          <button onClick={unsubscribeFromPush}>Unsubscribe</button>
+          <input
+            type="text"
+            placeholder="Enter notification message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button onClick={sendTestNotification}>Send Test</button>
+        </>
+      ) : (
+        <>
+          <p>You are not subscribed to push notifications.</p>
+          <button onClick={subscribeToPush}>Subscribe</button>
+        </>
+      )}
     </div>
   );
-};
+}
 
-export default OrbitingPlanet;
+function InstallPrompt() {
+  const [isIOS, setIsIOS] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
+
+  useEffect(() => {
+    setIsIOS(
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+    );
+
+    setIsStandalone(window.matchMedia("(display-mode: standalone)").matches);
+  }, []);
+
+  if (isStandalone) {
+    return null; // Don't show install button if already installed
+  }
+
+  return (
+    <div>
+      <h3>Install App</h3>
+      <button>Add to Home Screen</button>
+      {isIOS && (
+        <p>
+          To install this app on your iOS device, tap the share button
+          <span role="img" aria-label="share icon">
+            {" "}
+            ⎋{" "}
+          </span>
+          and then "Add to Home Screen"
+          <span role="img" aria-label="plus icon">
+            {" "}
+            ➕{" "}
+          </span>
+          .
+        </p>
+      )}
+    </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <div>
+      <PushNotificationManager />
+      <InstallPrompt />
+    </div>
+  );
+}
