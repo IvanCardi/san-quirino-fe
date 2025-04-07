@@ -10,8 +10,19 @@ webpush.setVapidDetails(
 
 let subscriptions: PushSubscription[] = [];
 
-export async function subscribeUser(sub: PushSubscription) {
+export async function subscribeUser(sub: PushSubscription, userId: string) {
   subscriptions.push(sub);
+
+  console.log(sub, userId);
+
+  await fetch("http://localhost:3000/subscribe", {
+    method: "POST",
+    body: JSON.stringify({
+      subscription: sub,
+      userId,
+    }),
+    headers: { "Content-Type": "application/json" },
+  });
   // In a production environment, you would want to store the subscription in a database
   // For example: await db.subscriptions.create({ data: sub })
   return { success: true };

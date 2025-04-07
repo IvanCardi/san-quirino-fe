@@ -22,6 +22,7 @@ function PushNotificationManager() {
     null
   );
   const [message, setMessage] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     if ("serviceWorker" in navigator && "PushManager" in window) {
@@ -49,7 +50,7 @@ function PushNotificationManager() {
     });
     setSubscription(sub);
     const serializedSub = JSON.parse(JSON.stringify(sub));
-    await subscribeUser(serializedSub);
+    await subscribeUser(serializedSub, userId);
   }
 
   async function unsubscribeFromPush() {
@@ -87,6 +88,7 @@ function PushNotificationManager() {
       ) : (
         <>
           <p>You are not subscribed to push notifications.</p>
+          <input value={userId} onChange={(e) => setUserId(e.target.value)} />
           <button onClick={subscribeToPush}>Subscribe</button>
         </>
       )}
