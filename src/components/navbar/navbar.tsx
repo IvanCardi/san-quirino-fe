@@ -6,6 +6,7 @@ import Star from "../icons/star-icon";
 import Lightning from "../icons/lightning-icon";
 import Profile from "../icons/profile-icon";
 import Plus from "../icons/plus-icon";
+import Link from "next/link";
 
 export default function Navbar() {
   const [width, setWidth] = useState(0);
@@ -18,8 +19,12 @@ export default function Navbar() {
     <div className="fixed bottom-0 w-screen">
       <NavbarShape width={`${width}px`} />
       <div className="absolute inset-0 flex px-8 pb-[35px] justify-between items-end">
-        <Home />
-        <Star />
+        <Link href={"/"}>
+          <Home />
+        </Link>
+        <Link href={"/leaderboard"}>
+          <Star />
+        </Link>
         <div
           style={{
             background: "linear-gradient(270.95deg, #7ACCFC 5%, #053575 100%)",
