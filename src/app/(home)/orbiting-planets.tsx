@@ -13,11 +13,11 @@ export default function OrbitingPlanet() {
     setAngle((prev) => (prev + speedFactor) % 360); // Increment by a smaller amount for slower animation
   });
 
-  const radiusX = 180; // Horizontal radius
-  const radiusY = 180; // Vertical radius
+  const radiusX = 250; // Horizontal radius
+  const radiusY = 150; // Vertical radius
   const centerX = 0;
   const centerY = 0;
-  const numberOfObjects = 7; // Number of objects orbiting
+  const numberOfObjects = 10; // Number of objects orbiting
   const angleStep = 360 / numberOfObjects; // Angle difference between objects
 
   const orbitingObjects = Array.from(
@@ -58,13 +58,14 @@ export default function OrbitingPlanet() {
       {orbitingObjects.map((planet, index) => (
         <motion.div
           key={index}
-          className="absolute w-[70px] h-[70px] bg-blue-500 rounded-full shadow-lg"
+          className="absolute w-[40px] h-[40px] bg-blue-500 rounded-full shadow-lg"
           style={{
             x: planet.x,
             y: planet.y,
             opacity: planet.opacity,
             zIndex: planet.zIndex,
             boxShadow: "0px 3.43px 3.43px 0px #00000040",
+            scale: planet.scale,
             // boxShadow: "10.3px 0px 3.43px 0px #00000040 inset",
           }}
         />
