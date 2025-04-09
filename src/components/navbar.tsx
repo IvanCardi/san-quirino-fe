@@ -25,14 +25,17 @@ export default function Navbar() {
         <Link href={"/leaderboard"}>
           <Star />
         </Link>
-        <div
-          style={{
-            background: "linear-gradient(270.95deg, #7ACCFC 5%, #053575 100%)",
-          }}
-          className="size-[60px] mb-[13px] rounded-full p-[18px]"
-        >
-          <Plus />
-        </div>
+        <Link href={"/notizia"}>
+          <div
+            style={{
+              background:
+                "linear-gradient(270.95deg, #7ACCFC 5%, #053575 100%)",
+            }}
+            className="size-[60px] mb-[13px] rounded-full p-[18px]"
+          >
+            <Plus />
+          </div>
+        </Link>
         <Lightning />
         <Profile />
       </div>
