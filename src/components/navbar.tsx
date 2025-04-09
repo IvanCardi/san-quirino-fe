@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import NavbarShape from "../shapes/navbar-shape";
-import Home from "../icons/home-icon";
-import Star from "../icons/star-icon";
-import Lightning from "../icons/lightning-icon";
-import Profile from "../icons/profile-icon";
-import Plus from "../icons/plus-icon";
+import NavbarShape from "./shapes/navbar-shape";
+import Home from "./icons/home-icon";
+import Star from "./icons/star-icon";
+import Lightning from "./icons/lightning-icon";
+import Profile from "./icons/profile-icon";
+import Plus from "./icons/plus-icon";
 import Link from "next/link";
 
 export default function Navbar() {
