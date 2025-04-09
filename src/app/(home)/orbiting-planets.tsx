@@ -50,7 +50,7 @@ export default function OrbitingPlanet() {
   );
 
   return (
-    <div className="relative flex items-center justify-center h-[500px] bg-white">
+    <div className="relative flex items-center justify-center h-[500px] bg-white overflow-hidden">
       {/* Central Logo */}
       <Image src={logo} alt="logo" />
 

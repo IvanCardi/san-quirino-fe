@@ -65,12 +65,11 @@ export default function Home() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.3 }}
+      className="flex flex-col h-screen gap-6 pt-6"
     >
-      <div className="pt-6">
-        <People people={people} />
-        <OrbitingPlanet />
-        {challenge && <Challenge challenge={challenge} me={me} />}
-      </div>
+      <People people={people} />
+      <OrbitingPlanet />
+      {challenge && <Challenge challenge={challenge} me={me} />}
     </motion.div>
   );
 }
