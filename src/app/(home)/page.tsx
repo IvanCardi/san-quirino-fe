@@ -1,6 +1,6 @@
-import Challenge from "./(home)/challenge";
-import OrbitingPlanet from "./(home)/orbiting-planets";
-import People from "./(home)/people";
+import Challenge from "./challenge";
+import OrbitingPlanet from "./orbiting-planets";
+import People from "./people";
 
 const people = [
   {
