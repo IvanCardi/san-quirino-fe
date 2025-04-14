@@ -1,5 +1,5 @@
 import PersonAvatar from "./person-avatar";
-import PositionBadge from "./position-badge";
+import RankBadge from "./rank-badge";
 
 export default function TopScorer({
   id,
@@ -31,7 +31,7 @@ export default function TopScorer({
       }}
     >
       <div className="flex flex-col gap-2 items-center">
-        <PositionBadge position={position} />
+        <RankBadge rank={position} />
         <p className="text-[10px] font-extrabold text-white">
           {points} <span className="font-normal">pt</span>
         </p>

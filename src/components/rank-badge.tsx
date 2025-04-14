@@ -1,8 +1,8 @@
-export default function PositionBadge({
-  position,
+export default function RankBadge({
+  rank,
   className,
 }: {
-  position: number;
+  rank: number;
   className?: string;
 }) {
   return (
@@ -12,7 +12,7 @@ export default function PositionBadge({
         boxShadow: "0px 1.83px 3.66px 0px #00000040",
       }}
     >
-      {position}
+      {rank}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import PersonAvatar from "./person-avatar";
-import PositionBadge from "./position-badge";
+import RankBadge from "./rank-badge";
 
 export default function RankingItem({
   fullName,
@@ -25,7 +25,7 @@ export default function RankingItem({
       }}
     >
       <div className="flex items-center gap-3">
-        <PositionBadge position={position} />
+        <RankBadge rank={position} />
         <div className="flex items-center gap-2">
           <div className="size-[37px]">
             <PersonAvatar

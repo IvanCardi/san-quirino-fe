@@ -37,7 +37,9 @@ export default function Navbar() {
           </div>
         </Link>
         <Lightning />
-        <Profile />
+        <Link href={"/profile"}>
+          <Profile />
+        </Link>
       </div>
     </div>
   );
