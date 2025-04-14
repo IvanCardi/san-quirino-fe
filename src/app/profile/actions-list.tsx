@@ -1,4 +1,5 @@
 "use client";
+import TypeBadge from "@/components/type-badge";
 import { useState } from "react";
 
 export default function ActionsList({
@@ -13,20 +14,18 @@ export default function ActionsList({
   }[];
 }) {
   const [type, setType] = useState("news");
+
   return (
     <div className="flex flex-col gap-5 px-5 h-full">
       <div className="w-full flex justify-between">
         <div className="w-[30%]" onClick={() => setType("news")}>
-          <ActionTypeBadge isSelected={type === "news"} label="Notizie" />
+          <TypeBadge isSelected={type === "news"} label="Notizie" />
         </div>
         <div className="w-[30%]" onClick={() => setType("cdv")}>
-          <ActionTypeBadge isSelected={type === "cdv"} label="CDV" />
+          <TypeBadge isSelected={type === "cdv"} label="CDV" />
         </div>
         <div className="w-[30%]" onClick={() => setType("assignment")}>
-          <ActionTypeBadge
-            isSelected={type === "assignment"}
-            label="Incarichi"
-          />
+          <TypeBadge isSelected={type === "assignment"} label="Incarichi" />
         </div>
       </div>
       <div className="h-full flex-1 overflow-y-auto pb-[113px]">
@@ -38,30 +37,6 @@ export default function ActionsList({
             ))}
         </div>
       </div>
-    </div>
-  );
-}
-
-function ActionTypeBadge({
-  isSelected,
-  label,
-}: {
-  label: string;
-  isSelected: boolean;
-}) {
-  return (
-    <div
-      className={`py-4 w-full rounded-[5px] ${
-        isSelected ? "bg-[#00B5FF]" : "bg-[#70C3DB]"
-      }`}
-      style={{
-        boxShadow:
-          "0px 4px 4px 0px #00000040, 0px -1px 6.1px 0px #00000040 inset",
-      }}
-    >
-      <p className="text-white font-bold text-[16px]/[16px] m-auto w-fit">
-        {label}
-      </p>
     </div>
   );
 }

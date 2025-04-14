@@ -9,9 +9,9 @@ export default function Header({
   logo: string;
 }) {
   return (
-    <div className="h-[200px] relative">
+    <div className="min-h-[200px] relative">
       <div
-        className="h-[80%] rounded-b-[20px]"
+        className="min-h-[80%] rounded-b-[20px]"
         style={{ backgroundImage: `url(${cover})`, backgroundSize: "cover" }}
       ></div>
       <BackButton className="absolute top-[65px] left-10" />
