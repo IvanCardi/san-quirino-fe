@@ -1,17 +1,10 @@
-"use client";
 import BackButton from "@/components/back-button";
+import PageAnimation from "@/components/page-animation";
 import NotiziaForm from "./notizia-form";
-import { motion } from "framer-motion";
 
 export default function Notizia() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col h-screen gap-6"
-    >
+    <PageAnimation>
       <div className="pt-[55px] flex flex-col">
         <BackButton className="ml-[30px]" variant="blue" />
         <div className="h-[34px]" />
@@ -26,6 +19,6 @@ export default function Notizia() {
           <NotiziaForm />
         </div>
       </div>
-    </motion.div>
+    </PageAnimation>
   );
 }

@@ -1,8 +1,7 @@
-"use client";
 import LeaderboardHeader from "@/components/leaderboard-header";
+import PageAnimation from "@/components/page-animation";
 import RankingItem from "@/components/ranking-item";
 import TopThree from "@/components/top-three";
-import { motion } from "framer-motion";
 
 const ranking = [
   {
@@ -99,13 +98,7 @@ const ranking = [
 
 export default function Leaderboard() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col h-screen gap-6"
-    >
+    <PageAnimation>
       <LeaderboardHeader
         title="Leaderboard"
         subtitle="Le leggende del mese"
@@ -119,6 +112,6 @@ export default function Leaderboard() {
           ))}
         </div>
       </div>
-    </motion.div>
+    </PageAnimation>
   );
 }

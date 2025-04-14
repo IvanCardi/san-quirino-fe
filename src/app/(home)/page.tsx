@@ -1,8 +1,7 @@
-"use client";
+import PageAnimation from "@/components/page-animation";
 import Challenge from "./challenge";
 import OrbitingPlanet from "./orbiting-planets";
 import People from "./people";
-import { motion } from "framer-motion";
 
 const people = [
   {
@@ -60,16 +59,10 @@ const challenge = {
 
 export default function Home() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col h-screen gap-6 pt-6"
-    >
+    <PageAnimation>
       <People people={people} />
       <OrbitingPlanet />
       {challenge && <Challenge challenge={challenge} me={me} />}
-    </motion.div>
+    </PageAnimation>
   );
 }

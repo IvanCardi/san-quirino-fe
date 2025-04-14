@@ -1,9 +1,8 @@
-"use client";
+import PageAnimation from "@/components/page-animation";
 import ActionsList from "./actions-list";
 import Header from "./header";
 import Info from "./info";
 import RankAndPointsBadge from "./rank-points-badge";
-import { motion } from "framer-motion";
 
 const info = {
   fullName: "Marco Verdi",
@@ -147,13 +146,7 @@ const actions = [
 
 export default function Profile() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col h-screen gap-6"
-    >
+    <PageAnimation>
       <div className="h-full flex flex-col">
         <Header {...info} />
         <div className="min-h-3" />
@@ -180,6 +173,6 @@ export default function Profile() {
           <ActionsList actions={actions} />
         </div>
       </div>
-    </motion.div>
+    </PageAnimation>
   );
 }
