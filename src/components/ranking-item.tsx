@@ -1,4 +1,4 @@
-import PersonAvatar from "./person-avatar";
+import CircleAvatar from "./circle-avatar";
 import RankBadge from "./rank-badge";
 
 export default function RankingItem({
@@ -28,7 +28,7 @@ export default function RankingItem({
         <RankBadge rank={position} />
         <div className="flex items-center gap-2">
           <div className="size-[37px]">
-            <PersonAvatar
+            <CircleAvatar
               className="h-full w-full border-[2px]"
               imageUrl={image}
               id={id}

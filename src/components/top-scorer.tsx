@@ -1,4 +1,4 @@
-import PersonAvatar from "./person-avatar";
+import CircleAvatar from "./circle-avatar";
 import RankBadge from "./rank-badge";
 
 export default function TopScorer({
@@ -42,7 +42,7 @@ export default function TopScorer({
             isFirst ? "size-[50px] top-[-55%]" : "size-[35px] top-[-30%]"
           } absolute ]`}
         >
-          <PersonAvatar id={id} imageUrl={image} className="h-full w-full" />
+          <CircleAvatar id={id} imageUrl={image} className="h-full w-full" />
         </div>
         <p className="font-semibold text-[7px]">{fullName}</p>
         <p className="font-light text-[7px]">{office}</p>

@@ -1,4 +1,5 @@
-import PersonAvatar from "@/components/person-avatar";
+import AnimatedGradient from "@/components/animated-gradient/animated-gradient";
+import CircleAvatar from "@/components/circle-avatar";
 
 type Challenger = {
   id: string;
@@ -21,12 +22,12 @@ export default function Challenge({ challenge, me }: ChallengeProps) {
     <div className="px-5 relative">
       <div className="absolute inset-0 top-[-30px]">
         <div className="px-5 w-full flex justify-between">
-          <PersonAvatar
+          <CircleAvatar
             className="w-10 h-10 border-[2px] !border-[#9ADAED]"
             id={me.id}
             imageUrl={me.imageUrl}
           />
-          <PersonAvatar
+          <CircleAvatar
             className="w-10 h-10 border-[2px] !border-[#9ADAED]"
             id={me.id}
             imageUrl={me.imageUrl}
@@ -35,23 +36,23 @@ export default function Challenge({ challenge, me }: ChallengeProps) {
       </div>
       <div className="flex items-center">
         <div className="rounded-l-[3px] h-3 w-full bg-[#E2EFF6] border-l border-t border-b border-[#568AEE]">
-          <div
-            className="bg-[#053575] h-full"
+          <AnimatedGradient
+            className="h-full rounded-r-full"
             style={{ width: `${(me.points / challenge.target) * 100}%` }}
-          ></div>
+          />
         </div>
         <div className="border-[2px] border-[#0773FF] bg-white px-1">
           <p className="uppercase font-inter font-bold text-4/4">sfida</p>
         </div>
         <div className="rounded-r-[3px] h-3 w-full bg-[#E2EFF6] border-r border-t border-b border-[#568AEE] flex justify-end">
-          <div
-            className="bg-[#053575] h-full"
+          <AnimatedGradient
+            className="h-full rounded-l-full"
             style={{
               width: `${
                 (challenge.challenger.points / challenge.target) * 100
               }%`,
             }}
-          ></div>
+          />
         </div>
       </div>
       <div className="w-full flex justify-between">

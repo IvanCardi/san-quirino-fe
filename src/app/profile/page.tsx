@@ -2,7 +2,7 @@ import PageAnimation from "@/components/page-animation";
 import ActionsList from "./actions-list";
 import Header from "./header";
 import Info from "./info";
-import RankAndPointsBadge from "./rank-points-badge";
+import RankPointsBadge from "./rank-points-badge";
 
 const info = {
   fullName: "Marco Verdi",
@@ -146,21 +146,21 @@ const actions = [
 
 export default function Profile() {
   return (
-    <PageAnimation>
+    <PageAnimation className="flex flex-col h-screen gap-6">
       <div className="h-full flex flex-col">
         <Header {...info} />
         <div className="min-h-3" />
         <Info {...info} />
         <div className="min-h-6" />
         <div className="px-5 flex justify-between">
-          <RankAndPointsBadge
+          <RankPointsBadge
             label="Classifica generale"
             points={info.points}
             rank={info.generalRank}
             width="48%"
             backgroundColor="#0C77A3"
           />
-          <RankAndPointsBadge
+          <RankPointsBadge
             label="Classifica ufficio"
             points={info.points}
             rank={info.officeRank}

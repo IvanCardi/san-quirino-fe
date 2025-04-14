@@ -1,3 +1,4 @@
+"use client";
 import BackButton from "@/components/back-button";
 import PageAnimation from "@/components/page-animation";
 import Confetti from "react-confetti";
@@ -7,7 +8,7 @@ export default function Success() {
   const { width, height } = useWindowSize();
 
   return (
-    <PageAnimation>
+    <PageAnimation className="flex flex-col h-screen gap-6">
       <div className="h-full w-full flex items-center justify-center">
         <BackButton
           className="absolute left-[30px] top-[55px]"

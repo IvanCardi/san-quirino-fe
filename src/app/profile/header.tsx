@@ -1,6 +1,6 @@
 import Image from "next/image";
 import header from "../../../public/profile-header.png";
-import PersonAvatar from "@/components/person-avatar";
+import CircleAvatar from "@/components/circle-avatar";
 import BackButton from "@/components/back-button";
 
 export default function Header({ photo }: { photo: string }) {
@@ -37,7 +37,7 @@ export default function Header({ photo }: { photo: string }) {
         className="w-full h-[150px] object-cover"
       ></Image>
       <div className="absolute bottom-0" style={{ left: "calc(50% - 38px)" }}>
-        <PersonAvatar id="id" imageUrl={photo}></PersonAvatar>
+        <CircleAvatar id="id" imageUrl={photo}></CircleAvatar>
       </div>
       <BackButton className="absolute top-[65px] left-[30px]" />
     </div>

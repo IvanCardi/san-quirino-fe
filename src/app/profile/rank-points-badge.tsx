@@ -1,6 +1,6 @@
 import RankBadge from "@/components/rank-badge";
 
-export default function RankAndPointsBadge({
+export default function RankPointsBadge({
   label,
   points,
   rank,

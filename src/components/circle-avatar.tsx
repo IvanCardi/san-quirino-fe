@@ -1,9 +1,9 @@
-export default function PersonAvatar({
+export default function CircleAvatar({
   imageUrl,
   className,
 }: {
   imageUrl: string;
-  id: string;
+  id?: string;
   className?: string;
 }) {
   return (

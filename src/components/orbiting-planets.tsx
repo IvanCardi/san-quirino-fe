@@ -1,14 +1,23 @@
 "use client";
 import { motion, useAnimationFrame } from "framer-motion";
 import { useState } from "react";
-import logo from "../../../public/andromeda-logo.png";
+import logo from "../..//public/andromeda-logo.png";
 import Image from "next/image";
 
-export default function OrbitingPlanet() {
+export default function OrbitingPlanet({
+  planets,
+  className,
+  hideLogo = false,
+}: {
+  planets: number;
+  className?: string;
+  hideLogo?: boolean;
+}) {
   const [angle, setAngle] = useState(0);
 
   // Slow down the animation by changing the angle increment
   const speedFactor = 0.1; // Smaller value makes the animation slower
+
   useAnimationFrame(() => {
     setAngle((prev) => (prev + speedFactor) % 360); // Increment by a smaller amount for slower animation
   });
@@ -17,7 +26,7 @@ export default function OrbitingPlanet() {
   const radiusY = 150; // Vertical radius
   const centerX = 0;
   const centerY = 0;
-  const numberOfObjects = 10; // Number of objects orbiting
+  const numberOfObjects = planets; // Number of objects orbiting
   const angleStep = 360 / numberOfObjects; // Angle difference between objects
 
   const orbitingObjects = Array.from(
@@ -50,9 +59,11 @@ export default function OrbitingPlanet() {
   );
 
   return (
-    <div className="relative flex items-center justify-center h-[500px] bg-white overflow-hidden">
+    <div
+      className={`relative flex items-center justify-center h-[500px] bg-white overflow-hidden ${className}`}
+    >
       {/* Central Logo */}
-      <Image src={logo} alt="logo" />
+      {!hideLogo && <Image src={logo} alt="logo" />}
 
       {/* Orbiting Planets with 3D effect */}
       {orbitingObjects.map((planet, index) => (
