@@ -7,8 +7,10 @@ import Lightning from "./icons/lightning-icon";
 import Profile from "./icons/profile-icon";
 import Plus from "./icons/plus-icon";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathName = usePathname();
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
@@ -20,10 +22,14 @@ export default function Navbar() {
       <NavbarShape width={`${width}px`} />
       <div className="absolute inset-0 flex px-8 pb-[35px] justify-between items-end">
         <Link href={"/"}>
-          <Home />
+          <Home className={`${pathName === "/" && "stroke-[#00B5FF]"}`} />
         </Link>
         <Link href={"/general-leaderboard"}>
-          <Star />
+          <Star
+            className={`${
+              pathName === "/general-leaderboard" && "stroke-[#00B5FF]"
+            }`}
+          />
         </Link>
         <Link href={"/notizia"}>
           <div
@@ -37,10 +43,16 @@ export default function Navbar() {
           </div>
         </Link>
         <Link href={"/role-leaderboard"}>
-          <Lightning />
+          <Lightning
+            className={`${
+              pathName === "/role-leaderboard" && "stroke-[#00B5FF]"
+            }`}
+          />
         </Link>
         <Link href={"/profile"}>
-          <Profile />
+          <Profile
+            className={`${pathName === "/profile" && "fill-[#00B5FF]"}`}
+          />
         </Link>
       </div>
     </div>
