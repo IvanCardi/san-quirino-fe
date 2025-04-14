@@ -22,7 +22,7 @@ export default function Navbar() {
         <Link href={"/"}>
           <Home />
         </Link>
-        <Link href={"/leaderboard"}>
+        <Link href={"/general-leaderboard"}>
           <Star />
         </Link>
         <Link href={"/notizia"}>
@@ -36,7 +36,9 @@ export default function Navbar() {
             <Plus />
           </div>
         </Link>
-        <Lightning />
+        <Link href={"/role-leaderboard"}>
+          <Lightning />
+        </Link>
         <Link href={"/profile"}>
           <Profile />
         </Link>

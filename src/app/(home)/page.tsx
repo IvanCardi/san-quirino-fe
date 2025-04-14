@@ -59,7 +59,7 @@ const challenge = {
 
 export default function Home() {
   return (
-    <PageAnimation>
+    <PageAnimation className="flex flex-col gap-6 pt-6">
       <People people={people} />
       <OrbitingPlanet />
       {challenge && <Challenge challenge={challenge} me={me} />}

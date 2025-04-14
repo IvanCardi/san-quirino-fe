@@ -1,6 +1,6 @@
 import LeaderboardHeader from "@/components/leaderboard-header";
+import LeaderboardList from "@/components/leaderboard-list";
 import PageAnimation from "@/components/page-animation";
-import RankingItem from "@/components/ranking-item";
 import TopThree from "@/components/top-three";
 
 const ranking = [
@@ -98,20 +98,14 @@ const ranking = [
 
 export default function Leaderboard() {
   return (
-    <PageAnimation>
+    <PageAnimation className="flex flex-col h-screen gap-6">
       <LeaderboardHeader
         title="Leaderboard"
         subtitle="Le leggende del mese"
         className="bg-[#02476B]"
       />
       <TopThree people={ranking.slice(0, 3)} />
-      <div className="flex-1 overflow-y-auto pb-[110px]">
-        <div className="px-5 flex flex-col gap-2 ">
-          {ranking.slice(3).map((person, index) => (
-            <RankingItem key={person.id} {...person} position={index + 4} />
-          ))}
-        </div>
-      </div>
+      <LeaderboardList people={ranking.slice(3)} />
     </PageAnimation>
   );
 }
