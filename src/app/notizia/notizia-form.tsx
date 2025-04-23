@@ -11,11 +11,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { createNews } from "./actions";
 
 const formSchema = z.object({
   firstName: z.string().min(1, "Inserisci il nome"),
   lastName: z.string().min(1, "Inserisci il congnome"),
-  address: z.string().min(1, "Inserisci l'indirizzo"),
+  fullAddress: z.string().min(1, "Inserisci l'indirizzo"),
   phone: z.string().min(1, "Inserisci il numero di telefono"),
 });
 
@@ -26,15 +27,18 @@ export default function NotiziaForm() {
     defaultValues: {
       firstName: "",
       lastName: "",
-      address: "",
+      fullAddress: "",
       phone: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    router.push("/success");
-  }
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const result = await createNews(values);
+
+    if (result.status !== "error") {
+      router.push("/success");
+    }
+  };
 
   return (
     <Form {...form}>
@@ -69,7 +73,7 @@ export default function NotiziaForm() {
           />
           <FormField
             control={form.control}
-            name="address"
+            name="fullAddress"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
