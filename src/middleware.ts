@@ -90,6 +90,6 @@ async function refresh(refreshToken: string): Promise<string | undefined> {
 // Apply middleware to protected routes
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|login).*)",
   ], // Protects any route under `/dashboard`
 };

@@ -10,12 +10,13 @@ export async function login(
     const url = `${process.env.BE_BASE_URL}/login`;
 
     const result = await fetch(url, {
+      credentials: "include", // Important
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        // "Access-Control-Allow-Origin": `${process.env.BE_BASE_URL}`,
       },
       body: JSON.stringify({ email, password }),
-      credentials: "include", // Ensures cookies are sent with the request
     });
 
     if (result.status !== 200) {
@@ -31,12 +32,18 @@ export async function login(
       name: "access_token",
       value: body.accessToken ?? "",
       path: "/",
+      sameSite: "lax", // <‑‑ must be 'none'
+      secure: false,
+      domain: "localhost",
       httpOnly: true,
     });
     (await cookies()).set({
       name: "refresh_token",
       value: body.refreshToken ?? "",
       path: "/",
+      sameSite: "lax", // <‑‑ must be 'none'
+      secure: false,
+      domain: "localhost",
       httpOnly: true,
     });
 
