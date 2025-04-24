@@ -8,7 +8,7 @@ export default function ActionsList({
   actions: {
     id: string;
     type: string;
-    name: string;
+    fullName: string;
     phone: string;
     address: string;
   }[];
@@ -43,12 +43,12 @@ export default function ActionsList({
 
 function ActionItem({
   address,
-  name,
+  fullName: name,
   phone,
 }: {
   id: string;
   type: string;
-  name: string;
+  fullName: string;
   phone: string;
   address: string;
 }) {
