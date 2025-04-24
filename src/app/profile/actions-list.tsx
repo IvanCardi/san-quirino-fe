@@ -1,18 +1,16 @@
 "use client";
 import TypeBadge from "@/components/type-badge";
+import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
+import { Action } from "@/lib/models/action";
 import { useState } from "react";
+import MakeCdvContent from "./make-cdv-content/make-cdv-content";
 
-export default function ActionsList({
-  actions,
-}: {
-  actions: {
-    id: string;
-    type: string;
-    fullName: string;
-    phone: string;
-    address: string;
-  }[];
-}) {
+export default function ActionsList({ actions }: { actions: Action[] }) {
+  const [open, setOpen] = useState(false);
+
+  const [selectedAction, setSelectedAction] = useState<Action | undefined>(
+    undefined
+  );
   const [type, setType] = useState("news");
 
   return (
@@ -30,11 +28,25 @@ export default function ActionsList({
       </div>
       <div className="h-full flex-1 overflow-y-auto pb-[113px]">
         <div className="flex flex-col gap-2">
-          {actions
-            .filter((a) => a.type === type)
-            .map((a) => (
-              <ActionItem key={a.id} {...a} />
-            ))}
+          <Drawer
+            open={open}
+            onOpenChange={setOpen}
+            onClose={() => setSelectedAction(undefined)}
+          >
+            {actions
+              .filter((a) => a.type === type)
+              .map((a) => (
+                <DrawerTrigger key={a.id} onClick={() => setSelectedAction(a)}>
+                  <ActionItem {...a} />
+                </DrawerTrigger>
+              ))}
+            {selectedAction?.type === "news" && (
+              <MakeCdvContent
+                actionId={selectedAction.id}
+                closeDrawer={() => setOpen(false)}
+              />
+            )}
+          </Drawer>
         </div>
       </div>
     </div>

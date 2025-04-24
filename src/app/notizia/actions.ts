@@ -11,7 +11,7 @@ export async function createNews(data: {
   try {
     const token = await getAccessToken();
 
-    const result = await fetch(`${process.env.BE_BASE_URL}/agents/news`, {
+    const result = await fetch(`${process.env.BE_BASE_URL}/actions`, {
       method: "POST",
       headers: {
         Accept: "application/json",
