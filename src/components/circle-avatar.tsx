@@ -7,10 +7,10 @@ export default function CircleAvatar({
   className?: string;
 }) {
   return (
-    <div className="flex-shrink-0 ">
+    <div className="flex-shrink-0 rounded-full bg-white">
       <img
         src={imageUrl}
-        alt="profile avatar image rounded-full"
+        alt="profile avatar image"
         className={`rounded-full border-4 border-white size-[76px] ${className}`}
         style={{ boxShadow: "0px 4px 4px 0px #00000040" }}
       />

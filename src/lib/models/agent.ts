@@ -15,4 +15,5 @@ export type Agent = {
   points: number;
   overallRank: number;
   officeRank: number;
+  avatar: string;
 };

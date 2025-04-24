@@ -4,14 +4,20 @@ import Header from "./header";
 import Info from "./info";
 import RankPointsBadge from "./rank-points-badge";
 import { getMe } from "@/lib/http/getMe";
+import { getAvatars } from "@/lib/http/getAvatars";
 
 export default async function Profile() {
   const agent = await getMe();
+  const avatars = await getAvatars();
 
   return (
     <PageAnimation className="flex flex-col h-screen gap-6">
       <div className="h-full flex flex-col">
-        <Header photo="aaa" />
+        <Header
+          photo={`${process.env.BE_BASE_URL}${agent.avatar}`}
+          avatars={avatars}
+          baseUrl={process.env.BE_BASE_URL ?? ""}
+        />
         <div className="min-h-3" />
         <Info
           address={agent.office.address}
