@@ -1,21 +1,23 @@
 import PageAnimation from "@/components/page-animation";
+import { getLoggedUser } from "@/lib/getLoggedUser";
+import { getAgent } from "@/lib/http/getAgent";
 import { getAvatars } from "@/lib/http/getAvatars";
 import { getMe } from "@/lib/http/getMe";
-import { itsMe } from "@/lib/itsMe";
 import { PageProps } from "@/lib/pageProps";
 import ActionsList from "./actions-list";
+import ChallengeNow from "./challenge-now/challenge-now";
 import Header from "./header";
 import Info from "./info";
 import RankPointsBadge from "./rank-points-badge";
-import { getAgent } from "@/lib/http/getAgent";
-import ActionButton from "@/components/action-button";
 
 export default async function Profile({ searchParams }: PageProps) {
   const agentId = (await searchParams).agentId as string;
-  const itsMeFlag = agentId ? await itsMe(agentId) : true;
+  const loggedUser = await getLoggedUser();
+  const itsMe = agentId ? loggedUser?.agentId === agentId : true;
+  const me = await getMe();
 
-  const agent = itsMeFlag ? await getMe() : await getAgent(agentId);
-  const avatars = itsMeFlag ? await getAvatars() : [];
+  const agent = itsMe ? me : await getAgent(agentId);
+  const avatars = itsMe ? await getAvatars() : [];
 
   return (
     <PageAnimation className="flex flex-col h-screen gap-6">
@@ -50,13 +52,11 @@ export default async function Profile({ searchParams }: PageProps) {
         </div>
         <div className="min-h-7" />
         <div className="flex-grow overflow-scroll">
-          <ActionsList actions={agent.actions} itsMe={itsMeFlag} />
+          <ActionsList actions={agent.actions} itsMe={itsMe} />
         </div>
         <div className="min-h-3" />
-        {!itsMeFlag && (
-          <div className="mb-[120px] m-auto">
-            <ActionButton disabled={false}>Sfida ora</ActionButton>
-          </div>
+        {!itsMe && !me.challenge && loggedUser?.type === agent.type && (
+          <ChallengeNow agentId={agent.id} />
         )}
       </div>
     </PageAnimation>
