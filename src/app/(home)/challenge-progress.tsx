@@ -35,7 +35,10 @@ export default function ChallengeProgress({
           <AnimatedGradient
             className="h-full rounded-r-full"
             style={{
-              width: `${(mySelf.points / challenge.target) * 100}%`,
+              width: `${Math.min(
+                100,
+                (mySelf.points / challenge.target) * 100
+              )}%`,
             }}
           />
         </div>
@@ -46,7 +49,10 @@ export default function ChallengeProgress({
           <AnimatedGradient
             className="h-full rounded-l-full"
             style={{
-              width: `${(opponent.points / challenge.target) * 100}%`,
+              width: `${Math.min(
+                100,
+                (opponent.points / challenge.target) * 100
+              )}%`,
             }}
           />
         </div>
