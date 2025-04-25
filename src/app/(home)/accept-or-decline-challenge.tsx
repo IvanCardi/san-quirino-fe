@@ -5,7 +5,7 @@ import DiscardButton from "@/components/discard-button";
 import { Challenge } from "@/lib/models/challenge";
 import { Building } from "lucide-react";
 import { useState } from "react";
-import { declineChallenge } from "./actions";
+import { acceptChallenge, declineChallenge } from "./actions";
 
 export default function AcceptOrDeclineChallenge({
   challenge,
@@ -14,8 +14,16 @@ export default function AcceptOrDeclineChallenge({
 }) {
   const [isHidden, setIsHidden] = useState(false);
 
-  const onDeleteClick = async () => {
+  const onDeclineClick = async () => {
     const response = await declineChallenge(challenge.id);
+
+    if (response.status === "ok") {
+      setIsHidden(true);
+    }
+  };
+
+  const onAcceptClick = async () => {
+    const response = await acceptChallenge(challenge.id);
 
     if (response.status === "ok") {
       setIsHidden(true);
@@ -44,9 +52,13 @@ export default function AcceptOrDeclineChallenge({
               </div>
             </div>
             <div className="flex gap-2">
-              <ActionButton className="!w-[100px] !px-2">Accetta</ActionButton>
+              <div onClick={onAcceptClick}>
+                <ActionButton className="!w-[100px] !px-2">
+                  Accetta
+                </ActionButton>
+              </div>
               <DiscardButton
-                onClick={onDeleteClick}
+                onClick={onDeclineClick}
                 className="!w-[100px] !px-2"
               >
                 <p className="text-white text-[17px] font-extrabold uppercase">
