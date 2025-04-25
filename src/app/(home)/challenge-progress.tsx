@@ -1,36 +1,32 @@
 import AnimatedGradient from "@/components/animated-gradient/animated-gradient";
 import CircleAvatar from "@/components/circle-avatar";
+import { Challenge } from "@/lib/models/challenge";
 
-type Challenger = {
-  id: string;
-  fullName: string;
-  office: string;
-  imageUrl: string;
-  points: number;
-};
+export default function ChallengeProgress({
+  challenge,
+  me,
+}: {
+  me: string;
+  challenge: Challenge;
+}) {
+  const mySelf =
+    challenge.challenger.id === me ? challenge.challenger : challenge.opponent;
+  const opponent =
+    challenge.challenger.id === me ? challenge.opponent : challenge.challenger;
 
-type ChallengeProps = {
-  me: Challenger;
-  challenge: {
-    target: number;
-    challenger: Challenger;
-  };
-};
-
-export default function Challenge({ challenge, me }: ChallengeProps) {
   return (
     <div className="px-5 relative">
       <div className="absolute inset-0 top-[-30px]">
         <div className="px-5 w-full flex justify-between">
           <CircleAvatar
             className="w-10 h-10 border-[2px] !border-[#9ADAED]"
-            id={me.id}
-            imageUrl={me.imageUrl}
+            id={me}
+            imageUrl={mySelf.avatar}
           />
           <CircleAvatar
             className="w-10 h-10 border-[2px] !border-[#9ADAED]"
-            id={me.id}
-            imageUrl={me.imageUrl}
+            id={me}
+            imageUrl={opponent.avatar}
           />
         </div>
       </div>
@@ -38,7 +34,9 @@ export default function Challenge({ challenge, me }: ChallengeProps) {
         <div className="rounded-l-[3px] h-3 w-full bg-[#E2EFF6] border-l border-t border-b border-[#568AEE]">
           <AnimatedGradient
             className="h-full rounded-r-full"
-            style={{ width: `${(me.points / challenge.target) * 100}%` }}
+            style={{
+              width: `${(mySelf.points / challenge.target) * 100}%`,
+            }}
           />
         </div>
         <div className="border-[2px] border-[#0773FF] bg-white px-1">
@@ -48,24 +46,24 @@ export default function Challenge({ challenge, me }: ChallengeProps) {
           <AnimatedGradient
             className="h-full rounded-l-full"
             style={{
-              width: `${
-                (challenge.challenger.points / challenge.target) * 100
-              }%`,
+              width: `${(opponent.points / challenge.target) * 100}%`,
             }}
           />
         </div>
       </div>
       <div className="w-full flex justify-between">
         <div className="flex flex-col items-center">
-          <p className="font-inter font-medium text-[7px]">{me.fullName}</p>
-          <p className="font-inter font-light text-[7px]">{me.office}</p>
+          <p className="font-inter font-medium text-[7px]">{`${mySelf.firstName} ${mySelf.lastName}`}</p>
+          <p className="font-inter font-light text-[7px]">
+            {mySelf.office.name}
+          </p>
         </div>
         <div className="flex flex-col items-center">
           <p className="font-inter font-medium text-[7px]">
-            {challenge.challenger.fullName}
+            {`${opponent.firstName} ${opponent.lastName}`}
           </p>
           <p className="font-inter font-light text-[7px]">
-            {challenge.challenger.office}
+            {opponent.office.name}
           </p>
         </div>
       </div>

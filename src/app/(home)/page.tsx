@@ -1,39 +1,31 @@
 import OrbitingPlanet from "@/components/orbiting-planets";
 import PageAnimation from "@/components/page-animation";
 import { getLeaderboard } from "@/lib/http/getLeaderboard";
-import Challenge from "./challenge";
+import ChallengeProgress from "./challenge-progress";
 import People from "./people";
-
-const me = {
-  id: "1",
-  fullName: "Ivan Cardillo",
-  office: "Agenzia 1",
-  imageUrl: "http://localhost:3000/avatar_1.png",
-  points: 1500,
-};
-
-const challenge = {
-  target: 3000,
-  challenger: {
-    id: "1",
-    fullName: "Jacopo Crincoli",
-    office: "Agenzia 2",
-    imageUrl: "http://localhost:3000/avatar_1.png",
-    points: 2000,
-  },
-};
+import { getMe } from "@/lib/http/getMe";
+import AcceptOrDeclineChallenge from "./accept-or-decline-challenge";
 
 export default async function Home() {
   const agents = (await getLeaderboard()).map((a) => ({
     id: a.agent.id,
-    imageUrl: `${process.env.BE_BASE_URL}${a.agent.avatar}`,
+    imageUrl: a.agent.avatar,
   }));
+  const me = await getMe();
+
+  console.log(me);
 
   return (
-    <PageAnimation className="flex flex-col gap-6 pt-6">
+    <PageAnimation className="flex flex-col gap-6 pt-6 pb-[120px]">
       <People people={agents} />
       <OrbitingPlanet planets={10} />
-      {challenge && <Challenge challenge={challenge} me={me} />}
+      {me.challenge?.status === "pending" &&
+        me.challenge.opponent.id === me.id && (
+          <AcceptOrDeclineChallenge challenge={me.challenge} />
+        )}
+      {me.challenge?.status === "in_progress" && (
+        <ChallengeProgress challenge={me.challenge} me={me.id} />
+      )}
     </PageAnimation>
   );
 }

@@ -11,7 +11,7 @@ export default async function Leaderboard() {
     type: a.agent.type,
     points: a.score,
     office: a.agent.office.name,
-    image: `${process.env.BE_BASE_URL}${a.agent.avatar}`,
+    image: a.agent.avatar,
   }));
 
   return (

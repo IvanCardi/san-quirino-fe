@@ -23,7 +23,7 @@ export default async function Profile({ searchParams }: PageProps) {
     <PageAnimation className="flex flex-col h-screen gap-6">
       <div className="h-full flex flex-col">
         <Header
-          photo={`${process.env.BE_BASE_URL}${agent.avatar}`}
+          photo={agent.avatar}
           avatars={avatars}
           baseUrl={process.env.BE_BASE_URL ?? ""}
         />

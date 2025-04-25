@@ -1,3 +1,5 @@
+import { Challenge } from "./challenge";
+
 export type Agent = {
   id: string;
   email: string;
@@ -16,21 +18,5 @@ export type Agent = {
   overallRank: number;
   officeRank: number;
   avatar: string;
-  challenge?: {
-    id: string;
-    challenger: {
-      id: string;
-      firstName: string;
-      lastName: string;
-      office: { id: string; name: string };
-    };
-    opponent: {
-      id: string;
-      firstName: string;
-      lastName: string;
-      office: { id: string; name: string };
-    };
-    target: number;
-    status: string;
-  };
+  challenge?: Challenge;
 };

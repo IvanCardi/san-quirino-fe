@@ -1,7 +1,7 @@
 "use client";
 import ActionButton from "@/components/action-button";
 import DatePicker from "@/components/date-pricker";
-import DeleteButton from "@/components/delete-button";
+import DiscardButton from "@/components/discard-button";
 import {
   DrawerContent,
   DrawerHeader,
@@ -82,7 +82,7 @@ export default function MakeCdvContent({
                   trasforma
                 </ActionButton>
               </button>
-              <DeleteButton onClick={() => {}} />
+              <DiscardButton onClick={() => {}} />
             </div>
           </form>
         </Form>
