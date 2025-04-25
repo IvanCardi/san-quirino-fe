@@ -17,13 +17,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { makeCdv } from "./actions";
+import { makeAssignment } from "./actions";
 
 const formSchema = z.object({
-  appointment: z.date({ message: "Inserisci una data valida" }),
+  assignment: z.date({ message: "Inserisci una data valida" }),
+  endAssignment: z.date({ message: "Inserisci una data valida" }),
 });
 
-export default function MakeCdvContent({
+export default function MakeAssignmentContent({
   actionId,
   closeDrawer,
 }: {
@@ -35,8 +36,9 @@ export default function MakeCdvContent({
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    const response = await makeCdv({
-      appointment: data.appointment.toISOString(),
+    const response = await makeAssignment({
+      assignment: data.assignment.toISOString(),
+      endAssignment: data.endAssignment.toISOString(),
       actionId,
     });
 
@@ -47,12 +49,15 @@ export default function MakeCdvContent({
     }
   };
 
-  const appointment = form.watch("appointment");
+  const assignment = form.watch("assignment");
+  const endAssignment = form.watch("endAssignment");
 
   return (
     <DrawerContent>
       <DrawerHeader>
-        <DrawerTitle className="!text-[24px]">Trasforma in CDV</DrawerTitle>
+        <DrawerTitle className="!text-[24px]">
+          Trasforma in incarico
+        </DrawerTitle>
       </DrawerHeader>
       <div className="w-full px-5 pb-8">
         <Form {...form}>
@@ -62,11 +67,27 @@ export default function MakeCdvContent({
           >
             <FormField
               control={form.control}
-              name="appointment"
+              name="assignment"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Appuntamento</FormLabel>
+                  <FormLabel>Data incarico</FormLabel>
                   <DatePicker value={field.value} onChange={field.onChange} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="endAssignment"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Data fine incarico</FormLabel>
+                  <DatePicker
+                    value={field.value}
+                    onChange={field.onChange}
+                    minDate={assignment}
+                    disabled={!assignment}
+                  />
                   <FormMessage />
                 </FormItem>
               )}
@@ -77,8 +98,10 @@ export default function MakeCdvContent({
               })}
             />
             <div className="w-full flex justify-center gap-2">
-              <button type="submit" disabled={!appointment}>
-                <ActionButton disabled={!appointment}>trasforma</ActionButton>
+              <button type="submit" disabled={!assignment || !endAssignment}>
+                <ActionButton disabled={!assignment || !endAssignment}>
+                  trasforma
+                </ActionButton>
               </button>
               <DeleteButton onClick={() => {}} />
             </div>
