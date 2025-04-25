@@ -18,11 +18,9 @@ import LogoutButton from "@/components/logout-button";
 export default function Header({
   photo,
   avatars,
-  baseUrl,
 }: {
   photo: string;
   avatars: string[];
-  baseUrl: string;
 }) {
   const onImageClick = async (avatar: string) => {
     await changeAvatar(avatar);
@@ -56,7 +54,7 @@ export default function Header({
                     className="w-[40%] aspect-square"
                     onClick={() => onImageClick(a)}
                   >
-                    <img src={`${baseUrl}${a}`} alt="avatar" />
+                    <img src={`${a}`} alt="avatar" />
                   </DrawerClose>
                 ))}
               </div>
