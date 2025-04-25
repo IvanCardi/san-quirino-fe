@@ -82,7 +82,7 @@ export default function MakeCdvContent({
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
+                            "w-[240px] pl-3 text-left font-normal border-[3px] rounded-full h-[40px] border-[#053575]",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -91,7 +91,10 @@ export default function MakeCdvContent({
                           ) : (
                             <span>Scegli la data</span>
                           )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          <CalendarIcon
+                            className="ml-auto h-4 w-4"
+                            color="#053575"
+                          />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
@@ -120,7 +123,7 @@ export default function MakeCdvContent({
                 children: form.formState.errors.root.message,
               })}
             />
-            <div className="w-full flex justify-center gap-3">
+            <div className="w-full flex justify-center gap-2">
               <button type="submit" disabled={!appointment}>
                 <ActionButton disabled={!appointment}>trasforma</ActionButton>
               </button>
