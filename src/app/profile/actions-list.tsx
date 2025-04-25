@@ -5,6 +5,7 @@ import { Action } from "@/lib/models/action";
 import { useState } from "react";
 import MakeAssignmentContent from "./make-assignment-content/make-assignment-content";
 import MakeCdvContent from "./make-cdv-content/make-cdv-content";
+import MakeSaleContent from "./make-sale-content/make-sale-content";
 
 export default function ActionsList({ actions }: { actions: Action[] }) {
   const [open, setOpen] = useState(false);
@@ -54,6 +55,12 @@ export default function ActionsList({ actions }: { actions: Action[] }) {
             )}
             {selectedAction?.type === "cdv" && (
               <MakeAssignmentContent
+                actionId={selectedAction.id}
+                closeDrawer={() => setOpen(false)}
+              />
+            )}
+            {selectedAction?.type === "assignment" && (
+              <MakeSaleContent
                 actionId={selectedAction.id}
                 closeDrawer={() => setOpen(false)}
               />

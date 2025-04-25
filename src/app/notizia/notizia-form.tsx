@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { createNews } from "./actions";
+import RoundedInput from "@/components/rounded-input";
 
 const formSchema = z.object({
   firstName: z.string().min(1, "Inserisci il nome"),
@@ -53,7 +54,7 @@ export default function NotiziaForm() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="Nome" {...field} />
+                  <RoundedInput placeholder="Nome" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -65,7 +66,7 @@ export default function NotiziaForm() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="Cognome" {...field} />
+                  <RoundedInput placeholder="Cognome" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -77,7 +78,7 @@ export default function NotiziaForm() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="Indirizzo" {...field} />
+                  <RoundedInput placeholder="Indirizzo" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -89,7 +90,7 @@ export default function NotiziaForm() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="N° di telefono" {...field} />
+                  <RoundedInput placeholder="N° di telefono" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -109,22 +110,5 @@ export default function NotiziaForm() {
         </Button>
       </form>
     </Form>
-  );
-}
-
-function Input(
-  props: React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >
-) {
-  return (
-    <input
-      {...props}
-      className="border-[3px] w-full rounded-full pl-6 py-2 border-[#053575] focus-visible:ring-0 focus-visible:outline-0"
-      style={{
-        boxShadow: "0px 4px 4px 0px #00000040",
-      }}
-    />
   );
 }
