@@ -38,6 +38,8 @@ export default function NotiziaForm() {
 
     if (result.status !== "error") {
       router.push("/success");
+    } else {
+      form.setError("root", { message: result.message });
     }
   };
 
@@ -97,7 +99,13 @@ export default function NotiziaForm() {
             )}
           />
         </div>
-        <div className="h-[56px]" />
+        <div className="min-h-[24px]" />
+        <FormMessage
+          {...(form.formState.errors.root && {
+            children: form.formState.errors.root.message,
+          })}
+        />
+        <div className="min-h-[24px]" />
         <Button
           className="bg-[#01377C] rounded-full py-[22px] px-13"
           type="submit"

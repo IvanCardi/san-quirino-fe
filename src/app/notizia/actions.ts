@@ -34,6 +34,6 @@ export async function createNews(data: {
     return { status: "ok" };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error: unknown) {
-    return { status: "error", message: "" };
+    return { status: "error", message: "Si è verificato un errore" };
   }
 }
