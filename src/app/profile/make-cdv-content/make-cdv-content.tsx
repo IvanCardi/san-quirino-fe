@@ -52,7 +52,7 @@ export default function MakeCdvContent({
   return (
     <DrawerContent>
       <DrawerHeader>
-        <DrawerTitle className="!text-[24px]">Trasforma in CDV</DrawerTitle>
+        <DrawerTitle>Trasforma in CDV</DrawerTitle>
       </DrawerHeader>
       <div className="w-full px-5 pb-8">
         <Form {...form}>

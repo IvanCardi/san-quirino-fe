@@ -55,9 +55,7 @@ export default function MakeAssignmentContent({
   return (
     <DrawerContent>
       <DrawerHeader>
-        <DrawerTitle className="!text-[24px]">
-          Trasforma in incarico
-        </DrawerTitle>
+        <DrawerTitle>Trasforma in incarico</DrawerTitle>
       </DrawerHeader>
       <div className="w-full px-5 pb-8">
         <Form {...form}>

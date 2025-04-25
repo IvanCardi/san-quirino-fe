@@ -7,7 +7,7 @@ export default function TypeBadge({
 }) {
   return (
     <div
-      className={`py-4 w-full rounded-[5px] ${
+      className={`py-4 w-fit px-5 rounded-[5px] ${
         isSelected ? "bg-[#00B5FF]" : "bg-[#70C3DB]"
       }`}
       style={{
