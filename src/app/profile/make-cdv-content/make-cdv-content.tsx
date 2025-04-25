@@ -20,7 +20,7 @@ import { z } from "zod";
 import { makeCdv } from "./actions";
 
 const formSchema = z.object({
-  appointment: z.date({ message: "Inserisci una data valida" }),
+  appointmentDate: z.date({ message: "Inserisci una data valida" }),
 });
 
 export default function MakeCdvContent({
@@ -36,7 +36,7 @@ export default function MakeCdvContent({
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const response = await makeCdv({
-      appointment: data.appointment.toISOString(),
+      appointmentDate: data.appointmentDate.toISOString(),
       actionId,
     });
 
@@ -47,7 +47,7 @@ export default function MakeCdvContent({
     }
   };
 
-  const appointment = form.watch("appointment");
+  const appointmentDate = form.watch("appointmentDate");
 
   return (
     <DrawerContent>
@@ -62,7 +62,7 @@ export default function MakeCdvContent({
           >
             <FormField
               control={form.control}
-              name="appointment"
+              name="appointmentDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Appuntamento</FormLabel>
@@ -77,8 +77,10 @@ export default function MakeCdvContent({
               })}
             />
             <div className="w-full flex justify-center gap-2">
-              <button type="submit" disabled={!appointment}>
-                <ActionButton disabled={!appointment}>trasforma</ActionButton>
+              <button type="submit" disabled={!appointmentDate}>
+                <ActionButton disabled={!appointmentDate}>
+                  trasforma
+                </ActionButton>
               </button>
               <DeleteButton onClick={() => {}} />
             </div>

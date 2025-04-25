@@ -20,8 +20,8 @@ import { z } from "zod";
 import { makeAssignment } from "./actions";
 
 const formSchema = z.object({
-  assignment: z.date({ message: "Inserisci una data valida" }),
-  endAssignment: z.date({ message: "Inserisci una data valida" }),
+  assignmentDate: z.date({ message: "Inserisci una data valida" }),
+  endAssignmentDate: z.date({ message: "Inserisci una data valida" }),
 });
 
 export default function MakeAssignmentContent({
@@ -37,8 +37,8 @@ export default function MakeAssignmentContent({
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const response = await makeAssignment({
-      assignment: data.assignment.toISOString(),
-      endAssignment: data.endAssignment.toISOString(),
+      assignmentDate: data.assignmentDate.toISOString(),
+      endAssignmentDate: data.endAssignmentDate.toISOString(),
       actionId,
     });
 
@@ -49,8 +49,8 @@ export default function MakeAssignmentContent({
     }
   };
 
-  const assignment = form.watch("assignment");
-  const endAssignment = form.watch("endAssignment");
+  const assignmentDate = form.watch("assignmentDate");
+  const endAssignmentDate = form.watch("endAssignmentDate");
 
   return (
     <DrawerContent>
@@ -65,7 +65,7 @@ export default function MakeAssignmentContent({
           >
             <FormField
               control={form.control}
-              name="assignment"
+              name="assignmentDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Data incarico</FormLabel>
@@ -76,15 +76,15 @@ export default function MakeAssignmentContent({
             />
             <FormField
               control={form.control}
-              name="endAssignment"
+              name="endAssignmentDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Data fine incarico</FormLabel>
                   <DatePicker
                     value={field.value}
                     onChange={field.onChange}
-                    minDate={assignment}
-                    disabled={!assignment}
+                    minDate={assignmentDate}
+                    disabled={!assignmentDate}
                   />
                   <FormMessage />
                 </FormItem>
@@ -96,8 +96,11 @@ export default function MakeAssignmentContent({
               })}
             />
             <div className="w-full flex justify-center gap-2">
-              <button type="submit" disabled={!assignment || !endAssignment}>
-                <ActionButton disabled={!assignment || !endAssignment}>
+              <button
+                type="submit"
+                disabled={!assignmentDate || !endAssignmentDate}
+              >
+                <ActionButton disabled={!assignmentDate || !endAssignmentDate}>
                   trasforma
                 </ActionButton>
               </button>

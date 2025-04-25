@@ -4,8 +4,8 @@ import { ServerActionResponse } from "@/lib/serverActionResponse";
 import { revalidateTag } from "next/cache";
 
 export async function makeAssignment(data: {
-  assignment: string;
-  endAssignment: string;
+  assignmentDate: string;
+  endAssignmentDate: string;
   actionId: string;
 }): Promise<ServerActionResponse> {
   try {
@@ -21,8 +21,8 @@ export async function makeAssignment(data: {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          assignment: data.assignment,
-          endAssignment: data.endAssignment,
+          assignmentDate: data.assignmentDate,
+          endAssignmentDate: data.endAssignmentDate,
         }),
         credentials: "include",
       }

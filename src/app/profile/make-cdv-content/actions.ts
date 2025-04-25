@@ -4,7 +4,7 @@ import { ServerActionResponse } from "@/lib/serverActionResponse";
 import { revalidateTag } from "next/cache";
 
 export async function makeCdv(data: {
-  appointment: string;
+  appointmentDate: string;
   actionId: string;
 }): Promise<ServerActionResponse> {
   try {
@@ -20,7 +20,7 @@ export async function makeCdv(data: {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          appointment: data.appointment,
+          appointmentDate: data.appointmentDate,
         }),
         credentials: "include",
       }

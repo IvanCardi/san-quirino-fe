@@ -72,7 +72,7 @@ export default function MakeSaleContent({
   return (
     <DrawerContent>
       <DrawerHeader>
-        <DrawerTitle>Trasforma in incarico</DrawerTitle>
+        <DrawerTitle>Trasforma in vendita</DrawerTitle>
       </DrawerHeader>
       <div className="w-full px-5 pb-8">
         <Form {...form}>
@@ -85,7 +85,7 @@ export default function MakeSaleContent({
               name="saleDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Data incarico</FormLabel>
+                  <FormLabel>Data vendita</FormLabel>
                   <DatePicker value={field.value} onChange={field.onChange} />
                   <FormMessage />
                 </FormItem>
@@ -125,22 +125,6 @@ export default function MakeSaleContent({
                 </FormItem>
               )}
             />
-            {/* <FormField
-              control={form.control}
-              name="endAssignment"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Data fine incarico</FormLabel>
-                  <DatePicker
-                    value={field.value}
-                    onChange={field.onChange}
-                    minDate={assignment}
-                    disabled={!assignment}
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
             <FormMessage
               {...(form.formState.errors.root && {
                 children: form.formState.errors.root.message,
