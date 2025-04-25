@@ -32,18 +32,16 @@ export async function login(
       name: "access_token",
       value: body.accessToken ?? "",
       path: "/",
-      sameSite: "lax", // <‑‑ must be 'none'
-      secure: false,
-      domain: "localhost",
+      sameSite: "none", // <‑‑ must be 'none'
+      secure: true,
       httpOnly: true,
     });
     (await cookies()).set({
       name: "refresh_token",
       value: body.refreshToken ?? "",
       path: "/",
-      sameSite: "lax", // <‑‑ must be 'none'
-      secure: false,
-      domain: "localhost",
+      sameSite: "none", // <‑‑ must be 'none'
+      secure: true,
       httpOnly: true,
     });
 

@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 import header from "../../../public/profile-header.png";
 import { changeAvatar } from "./actions";
+import LogoutButton from "@/components/logout-button";
 
 export default function Header({
   photo,
@@ -64,6 +65,7 @@ export default function Header({
         )}
       </div>
       <BackButton className="absolute top-[65px] left-[30px]" />
+      <LogoutButton className="absolute top-[65px] right-[30px]" />
     </div>
   );
 }
