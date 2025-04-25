@@ -23,7 +23,7 @@ export default function ActionsList({
 
   return (
     <div className="flex flex-col gap-5 h-full">
-      <div className="w-full overflow-x-auto px-5 pb-[6px]">
+      <div className="w-full overflow-x-auto px-5 mb-[6px]">
         <div className=" flex flex-nowrap w-max gap-3">
           <div className="w-fit" onClick={() => setType("news")}>
             <TypeBadge isSelected={type === "news"} label="Notizie" />
@@ -39,7 +39,11 @@ export default function ActionsList({
           </div>
         </div>
       </div>
-      <div className="h-full flex-1 overflow-y-auto px-5 pb-[113px]">
+      <div
+        className={`h-full flex-1 overflow-y-auto px-5 ${
+          itsMe && "pb-[113px]"
+        }`}
+      >
         <div className="flex flex-col gap-2">
           {itsMe ? (
             <Drawer

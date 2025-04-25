@@ -8,6 +8,7 @@ import Header from "./header";
 import Info from "./info";
 import RankPointsBadge from "./rank-points-badge";
 import { getAgent } from "@/lib/http/getAgent";
+import ActionButton from "@/components/action-button";
 
 export default async function Profile({ searchParams }: PageProps) {
   const agentId = (await searchParams).agentId as string;
@@ -47,10 +48,16 @@ export default async function Profile({ searchParams }: PageProps) {
             backgroundColor="#0771FC"
           />
         </div>
-        <div className="min-h-9" />
+        <div className="min-h-7" />
         <div className="flex-grow overflow-scroll">
           <ActionsList actions={agent.actions} itsMe={itsMeFlag} />
         </div>
+        <div className="min-h-3" />
+        {!itsMeFlag && (
+          <div className="mb-[120px] m-auto">
+            <ActionButton disabled={false}>Sfida ora</ActionButton>
+          </div>
+        )}
       </div>
     </PageAnimation>
   );
