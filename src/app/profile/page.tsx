@@ -1,14 +1,20 @@
 import PageAnimation from "@/components/page-animation";
+import { getAvatars } from "@/lib/http/getAvatars";
+import { getMe } from "@/lib/http/getMe";
+import { itsMe } from "@/lib/itsMe";
+import { PageProps } from "@/lib/pageProps";
 import ActionsList from "./actions-list";
 import Header from "./header";
 import Info from "./info";
 import RankPointsBadge from "./rank-points-badge";
-import { getMe } from "@/lib/http/getMe";
-import { getAvatars } from "@/lib/http/getAvatars";
+import { getAgent } from "@/lib/http/getAgent";
 
-export default async function Profile() {
-  const agent = await getMe();
-  const avatars = await getAvatars();
+export default async function Profile({ searchParams }: PageProps) {
+  const agentId = (await searchParams).agentId as string;
+  const itsMeFlag = agentId ? await itsMe(agentId) : true;
+
+  const agent = itsMeFlag ? await getMe() : await getAgent(agentId);
+  const avatars = itsMeFlag ? await getAvatars() : [];
 
   return (
     <PageAnimation className="flex flex-col h-screen gap-6">
@@ -43,7 +49,7 @@ export default async function Profile() {
         </div>
         <div className="min-h-9" />
         <div className="flex-grow overflow-scroll">
-          <ActionsList actions={agent.actions} />
+          <ActionsList actions={agent.actions} itsMe={itsMeFlag} />
         </div>
       </div>
     </PageAnimation>

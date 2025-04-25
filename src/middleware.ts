@@ -54,9 +54,7 @@ export async function middleware(req: NextRequest) {
 async function isAuthenticated(accessToken: string): Promise<boolean> {
   try {
     const secretKey = new TextEncoder().encode(ACCESS_SECRET);
-    const { payload } = await jwtVerify(accessToken, secretKey);
-
-    console.log("Verified JWT payload:", payload);
+    await jwtVerify(accessToken, secretKey);
 
     return true;
   } catch (error) {

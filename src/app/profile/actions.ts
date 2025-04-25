@@ -1,6 +1,7 @@
 "use server";
 import { getAccessToken } from "@/lib/getAccessToken";
 import { ServerActionResponse } from "@/lib/serverActionResponse";
+import { revalidateTag } from "next/cache";
 
 export async function changeAvatar(
   avatar: string
@@ -27,6 +28,8 @@ export async function changeAvatar(
         message: (await result.json()).message,
       };
     }
+
+    revalidateTag("me");
 
     return { status: "ok" };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

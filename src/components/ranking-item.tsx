@@ -1,3 +1,4 @@
+import Link from "next/link";
 import CircleAvatar from "./circle-avatar";
 import RankBadge from "./rank-badge";
 
@@ -17,7 +18,8 @@ export default function RankingItem({
   className?: string;
 }) {
   return (
-    <div
+    <Link
+      href={`/profile?agentId=${id}`}
       className={`px-5 py-2 flex items-center justify-between rounded-[10px] bg-[#07465C] ${className}`}
       style={{
         boxShadow:
@@ -40,6 +42,6 @@ export default function RankingItem({
       <p className="text-white font-extrabold text-[15px]">
         {points} <span className="font-thin">pt</span>
       </p>
-    </div>
+    </Link>
   );
 }

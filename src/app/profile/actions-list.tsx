@@ -7,7 +7,13 @@ import MakeAssignmentContent from "./make-assignment-content/make-assignment-con
 import MakeCdvContent from "./make-cdv-content/make-cdv-content";
 import MakeSaleContent from "./make-sale-content/make-sale-content";
 
-export default function ActionsList({ actions }: { actions: Action[] }) {
+export default function ActionsList({
+  actions,
+  itsMe,
+}: {
+  actions: Action[];
+  itsMe: boolean;
+}) {
   const [open, setOpen] = useState(false);
 
   const [selectedAction, setSelectedAction] = useState<Action | undefined>(
@@ -35,37 +41,46 @@ export default function ActionsList({ actions }: { actions: Action[] }) {
       </div>
       <div className="h-full flex-1 overflow-y-auto px-5 pb-[113px]">
         <div className="flex flex-col gap-2">
-          <Drawer
-            open={open}
-            onOpenChange={setOpen}
-            onClose={() => setSelectedAction(undefined)}
-          >
-            {actions
+          {itsMe ? (
+            <Drawer
+              open={open}
+              onOpenChange={setOpen}
+              onClose={() => setSelectedAction(undefined)}
+            >
+              {actions
+                .filter((a) => a.type === type)
+                .map((a) => (
+                  <DrawerTrigger
+                    key={a.id}
+                    onClick={() => setSelectedAction(a)}
+                  >
+                    <ActionItem {...a} />
+                  </DrawerTrigger>
+                ))}
+              {selectedAction?.type === "news" && (
+                <MakeCdvContent
+                  actionId={selectedAction.id}
+                  closeDrawer={() => setOpen(false)}
+                />
+              )}
+              {selectedAction?.type === "cdv" && (
+                <MakeAssignmentContent
+                  actionId={selectedAction.id}
+                  closeDrawer={() => setOpen(false)}
+                />
+              )}
+              {selectedAction?.type === "assignment" && (
+                <MakeSaleContent
+                  actionId={selectedAction.id}
+                  closeDrawer={() => setOpen(false)}
+                />
+              )}
+            </Drawer>
+          ) : (
+            actions
               .filter((a) => a.type === type)
-              .map((a) => (
-                <DrawerTrigger key={a.id} onClick={() => setSelectedAction(a)}>
-                  <ActionItem {...a} />
-                </DrawerTrigger>
-              ))}
-            {selectedAction?.type === "news" && (
-              <MakeCdvContent
-                actionId={selectedAction.id}
-                closeDrawer={() => setOpen(false)}
-              />
-            )}
-            {selectedAction?.type === "cdv" && (
-              <MakeAssignmentContent
-                actionId={selectedAction.id}
-                closeDrawer={() => setOpen(false)}
-              />
-            )}
-            {selectedAction?.type === "assignment" && (
-              <MakeSaleContent
-                actionId={selectedAction.id}
-                closeDrawer={() => setOpen(false)}
-              />
-            )}
-          </Drawer>
+              .map((a) => <ActionItem key={a.id} {...a} />)
+          )}
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import CircleAvatar from "./circle-avatar";
 import RankBadge from "./rank-badge";
 
@@ -23,7 +24,8 @@ export default function TopScorer({
   isFirst?: boolean;
 }) {
   return (
-    <div
+    <Link
+      href={`/profile?agentId=${id}`}
       className={`rounded-[10px] flex flex-col justify-between items-center pt-[10px] overflow-hidden ${className}`}
       style={{
         boxShadow:
@@ -48,6 +50,6 @@ export default function TopScorer({
         <p className="font-light text-[7px]">{office}</p>
         <p className="font-normal text-[7px] capitalize">{type}</p>
       </div>
-    </div>
+    </Link>
   );
 }

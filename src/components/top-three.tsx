@@ -13,23 +13,29 @@ export default function TopThree({
   }[];
 }) {
   return (
-    <div className="flex justify-between px-5 items-end">
-      <TopScorer
-        {...people[1]}
-        position={2}
-        className="h-[140px] w-[30%] bg-[#9ADAED]"
-      />
-      <TopScorer
-        {...people[0]}
-        position={1}
-        className="h-[160px] w-[30%] bg-[#00B5FF]"
-        isFirst
-      />
-      <TopScorer
-        {...people[2]}
-        position={3}
-        className="h-[140px] w-[30%] bg-[#0773FF]"
-      />
+    <div className="flex justify-around px-5 items-end w-full">
+      {people[1] && (
+        <TopScorer
+          {...people[1]}
+          position={2}
+          className="h-[140px] w-[30%] bg-[#9ADAED]"
+        />
+      )}
+      {people[0] && (
+        <TopScorer
+          {...people[0]}
+          position={1}
+          className="h-[160px] w-[30%] bg-[#00B5FF]"
+          isFirst
+        />
+      )}
+      {people[2] && (
+        <TopScorer
+          {...people[2]}
+          position={3}
+          className="h-[140px] w-[30%] bg-[#0773FF]"
+        />
+      )}
     </div>
   );
 }
