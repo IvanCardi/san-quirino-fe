@@ -1,6 +1,13 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+module.exports = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "192.168.1.222",
+        port: "3000",
+      },
+    ],
+  },
   async headers() {
     return [
       {
@@ -40,5 +47,3 @@ const nextConfig: NextConfig = {
     ];
   },
 };
-
-export default nextConfig;
