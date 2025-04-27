@@ -1,10 +1,19 @@
 module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: "/uploads/:path*",
+        destination: "http://192.168.1.102:3000/:path*",
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
         protocol: "http",
         hostname: "192.168.1.102",
         port: "3000",
+        pathname: "/**",
       },
     ],
   },
