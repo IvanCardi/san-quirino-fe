@@ -1,7 +1,15 @@
 "use client";
-
 import { useState, useEffect } from "react";
-import { subscribeUser, unsubscribeUser, sendNotification } from "./actions";
+import { subscribeUser } from "./actions";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { useRouter } from "next/navigation";
 
 function urlBase64ToUint8Array(base64String: string) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -16,28 +24,60 @@ function urlBase64ToUint8Array(base64String: string) {
   return outputArray;
 }
 
-function PushNotificationManager() {
-  const [isSupported, setIsSupported] = useState(false);
-  const [subscription, setSubscription] = useState<PushSubscription | null>(
-    null
-  );
-  const [message, setMessage] = useState("");
-  const [userId, setUserId] = useState("");
+export default function PushNotificationManager({
+  isSubscribed,
+}: {
+  isSubscribed: boolean;
+}) {
+  const [isStandalone, setIsStandalone] = useState(false);
+  const [open, setOpen] = useState(true);
+
+  const router = useRouter();
 
   useEffect(() => {
+    setIsStandalone(window.matchMedia("(display-mode: standalone)").matches);
+
     if ("serviceWorker" in navigator && "PushManager" in window) {
-      setIsSupported(true);
       registerServiceWorker();
+    }
+
+    if (isSubscribed) {
+      checkSubscription().then((res) => {
+        if (!res) {
+          subscribeToPush();
+        }
+      });
     }
   }, []);
 
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then((registration) => {
+        if (registration.active) {
+          registration.active.postMessage({ action: "getPendingNavigation" });
+        }
+      });
+
+      navigator.serviceWorker.addEventListener("message", (event) => {
+        if (event.data?.action === "navigate" && event.data.url) {
+          console.log("Navigating to", event.data.url);
+          router.push(event.data.url);
+        }
+      });
+    }
+  }, [router]);
+
+  async function checkSubscription() {
+    const registration = await navigator.serviceWorker.ready;
+
+    return !!(await registration.pushManager.getSubscription());
+  }
+
   async function registerServiceWorker() {
-    const registration = await navigator.serviceWorker.register("/sw.js", {
+    await navigator.serviceWorker.register("/sw.js", {
       scope: "/",
       updateViaCache: "none",
     });
-    const sub = await registration.pushManager.getSubscription();
-    setSubscription(sub);
   }
 
   async function subscribeToPush() {
@@ -48,29 +88,43 @@ function PushNotificationManager() {
         process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!
       ),
     });
-    setSubscription(sub);
     const serializedSub = JSON.parse(JSON.stringify(sub));
-    await subscribeUser(serializedSub, userId);
+    await subscribeUser(serializedSub);
+    setOpen(false);
   }
 
-  async function unsubscribeFromPush() {
+  if (!isSubscribed) {
+    return (
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Attiva le notifiche</AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => subscribeToPush()}>
+              Attiva
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  }
+  return <></>;
+
+  /*  async function unsubscribeFromPush() {
     await subscription?.unsubscribe();
     setSubscription(null);
     await unsubscribeUser();
-  }
+  } */
 
-  async function sendTestNotification() {
+  /* async function sendTestNotification() {
     if (subscription) {
       await sendNotification(message);
       setMessage("");
     }
-  }
+  } */
 
-  if (!isSupported) {
-    return <p>Push notifications are not supported in this browser.</p>;
-  }
-
-  return (
+  /* return (
     <div>
       <h3>Push Notifications</h3>
       {subscription ? (
@@ -92,11 +146,11 @@ function PushNotificationManager() {
           <button onClick={subscribeToPush}>Subscribe</button>
         </>
       )}
-    </div>
-  );
+    </div> 
+  ); */
 }
 
-function InstallPrompt() {
+/* function InstallPrompt() {
   const [isIOS, setIsIOS] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
 
@@ -134,13 +188,13 @@ function InstallPrompt() {
       )}
     </div>
   );
-}
+} */
 
-export default function Page() {
+/* export default function Page() {
   return (
     <div>
       <PushNotificationManager />
       <InstallPrompt />
     </div>
   );
-}
+} */

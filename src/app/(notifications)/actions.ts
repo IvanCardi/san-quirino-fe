@@ -1,41 +1,37 @@
 "use server";
+import { getAccessToken } from "@/lib/getAccessToken";
+import { PushSubscription } from "web-push";
 
-import webpush, { PushSubscription } from "web-push";
-
-webpush.setVapidDetails(
+/* webpush.setVapidDetails(
   "mailto:ivancardillo1996@gmail.com",
   process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
   process.env.VAPID_PRIVATE_KEY!
-);
+); */
 
-let subscriptions: PushSubscription[] = [];
-
-export async function subscribeUser(sub: PushSubscription, userId: string) {
-  subscriptions.push(sub);
-
-  console.log(sub, userId);
-
-  await fetch("http://localhost:3000/subscribe", {
+export async function subscribeUser(pushSub: PushSubscription) {
+  const token = await getAccessToken();
+  await fetch("http://localhost:3000/subscriptions", {
     method: "POST",
     body: JSON.stringify({
-      subscription: sub,
-      userId,
+      pushSub,
     }),
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
-  // In a production environment, you would want to store the subscription in a database
-  // For example: await db.subscriptions.create({ data: sub })
+
   return { success: true };
 }
 
-export async function unsubscribeUser() {
+/* export async function unsubscribeUser() {
   subscriptions = [];
   // In a production environment, you would want to remove the subscription from the database
   // For example: await db.subscriptions.delete({ where: { ... } })
   return { success: true };
-}
+} */
 
-export async function sendNotification(message: string) {
+/* export async function sendNotification(message: string) {
   if (subscriptions?.length === 0) {
     throw new Error("No subscription available");
   }
@@ -56,4 +52,4 @@ export async function sendNotification(message: string) {
     console.error("Error sending push notification:", error);
     return { success: false, error: "Failed to send notification" };
   }
-}
+} */

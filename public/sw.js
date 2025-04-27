@@ -9,14 +9,38 @@ self.addEventListener('push', function (event) {
       data: {
         dateOfArrival: Date.now(),
         primaryKey: '2',
+        url: data.url
       },
     }
     event.waitUntil(self.registration.showNotification(data.title, options))
   }
 })
 
-self.addEventListener('notificationclick', function (event) {
-  console.log('Notification click received.')
-  event.notification.close()
-  event.waitUntil(clients.openWindow('<https://your-website.com>'))
-})
+let pendingNavigationUrl = null;
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+
+  const targetPage = event.notification.data?.url || '/';
+  pendingNavigationUrl = targetPage;
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url.startsWith(self.location.origin) && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      return clients.openWindow('/');
+    })
+  );
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data?.action === 'getPendingNavigation') {
+    if (pendingNavigationUrl) {
+      event.source.postMessage({ action: 'navigate', url: pendingNavigationUrl });
+      pendingNavigationUrl = null; // Clear after sending
+    }
+  }
+});

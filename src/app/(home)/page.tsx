@@ -5,8 +5,12 @@ import ChallengeProgress from "./challenge-progress";
 import People from "./people";
 import { getMe } from "@/lib/http/getMe";
 import AcceptOrDeclineChallenge from "./accept-or-decline-challenge";
+import PushNotificationManager from "../(notifications)/notification";
+import { getIsSubscribed } from "@/lib/http/getIsSubscribed";
 
 export default async function Home() {
+  const isSubscribed = await getIsSubscribed();
+
   const agents = (await getLeaderboard()).map((a) => ({
     id: a.agent.id,
     imageUrl: a.agent.avatar,
@@ -24,6 +28,7 @@ export default async function Home() {
       {me.challenge?.status === "in_progress" && (
         <ChallengeProgress challenge={me.challenge} me={me.id} />
       )}
+      <PushNotificationManager isSubscribed={isSubscribed} />
     </PageAnimation>
   );
 }
