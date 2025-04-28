@@ -1,22 +1,24 @@
 "use client";
 import { motion, useAnimationFrame } from "framer-motion";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import logo from "../..//public/andromeda-logo.png";
 import Image from "next/image";
 
-export default function OrbitingPlanet({
+export default function OrbitingPlanets<T>({
   planets,
   className,
   hideLogo = false,
+  PlanetRender,
 }: {
-  planets: number;
+  planets: T[];
   className?: string;
   hideLogo?: boolean;
+  PlanetRender: (props: { planet: T }) => ReactNode;
 }) {
   const [angle, setAngle] = useState(0);
 
   // Slow down the animation by changing the angle increment
-  const speedFactor = 0.1; // Smaller value makes the animation slower
+  const speedFactor = 0.3 / planets.length; // Smaller value makes the animation slower
 
   useAnimationFrame(() => {
     setAngle((prev) => (prev + speedFactor) % 360); // Increment by a smaller amount for slower animation
@@ -26,7 +28,7 @@ export default function OrbitingPlanet({
   const radiusY = 150; // Vertical radius
   const centerX = 0;
   const centerY = 0;
-  const numberOfObjects = planets; // Number of objects orbiting
+  const numberOfObjects = planets.length; // Number of objects orbiting
   const angleStep = 360 / numberOfObjects; // Angle difference between objects
 
   const orbitingObjects = Array.from(
@@ -60,7 +62,7 @@ export default function OrbitingPlanet({
 
   return (
     <div
-      className={`relative flex items-center justify-center h-[500px] bg-white overflow-hidden ${className}`}
+      className={`relative flex items-center justify-center h-[400px] bg-transparent overflow-hidden ${className}`}
     >
       {/* Central Logo */}
       {!hideLogo && <Image src={logo} alt="logo" />}
@@ -69,7 +71,7 @@ export default function OrbitingPlanet({
       {orbitingObjects.map((planet, index) => (
         <motion.div
           key={index}
-          className="absolute w-[40px] h-[40px] bg-blue-500 rounded-full shadow-lg"
+          className="absolute rounded-full z-50"
           style={{
             x: planet.x,
             y: planet.y,
@@ -77,9 +79,10 @@ export default function OrbitingPlanet({
             zIndex: planet.zIndex,
             boxShadow: "0px 3.43px 3.43px 0px #00000040",
             scale: planet.scale,
-            // boxShadow: "10.3px 0px 3.43px 0px #00000040 inset",
           }}
-        />
+        >
+          <PlanetRender planet={planets[index]} />
+        </motion.div>
       ))}
     </div>
   );

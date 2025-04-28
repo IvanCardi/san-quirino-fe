@@ -9,7 +9,7 @@ export default function Header({
   logo: string;
 }) {
   return (
-    <div className="min-h-[200px] relative">
+    <div className="min-h-[200px] relative z-[100]">
       <div
         className="min-h-[80%] rounded-b-[20px]"
         style={{ backgroundImage: `url(${cover})`, backgroundSize: "cover" }}

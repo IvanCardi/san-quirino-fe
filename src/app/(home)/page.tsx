@@ -1,12 +1,13 @@
-import OrbitingPlanet from "@/components/orbiting-planets";
 import PageAnimation from "@/components/page-animation";
-import { getLeaderboard } from "@/lib/http/getLeaderboard";
-import ChallengeProgress from "./challenge-progress";
-import People from "./people";
-import { getMe } from "@/lib/http/getMe";
-import AcceptOrDeclineChallenge from "./accept-or-decline-challenge";
-import PushNotificationManager from "../(notifications)/notification";
 import { getIsSubscribed } from "@/lib/http/getIsSubscribed";
+import { getLeaderboard } from "@/lib/http/getLeaderboard";
+import { getMe } from "@/lib/http/getMe";
+import { getOffices } from "@/lib/http/getOffices";
+import PushNotificationManager from "../(notifications)/notification";
+import AcceptOrDeclineChallenge from "./accept-or-decline-challenge";
+import ChallengeProgress from "./challenge-progress";
+import OfficesPlanets from "./offices-planets";
+import People from "./people";
 
 export default async function Home() {
   const isSubscribed = await getIsSubscribed();
@@ -16,11 +17,12 @@ export default async function Home() {
     imageUrl: a.agent.avatar,
   }));
   const me = await getMe();
+  const offices = await getOffices();
 
   return (
     <PageAnimation className="flex flex-col gap-6 pt-6 pb-[120px]">
       <People people={agents} />
-      <OrbitingPlanet planets={10} />
+      <OfficesPlanets offices={offices} />
       {me.challenge?.status === "pending" &&
         me.challenge.opponent.id === me.id && (
           <AcceptOrDeclineChallenge challenge={me.challenge} />
