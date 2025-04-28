@@ -11,6 +11,11 @@
   display: none;
 }
 
+html,
+body {
+  overscroll-behavior-y: contain;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

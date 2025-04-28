@@ -2,6 +2,7 @@ import Navbar from "@/components/navbar";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import PullToRefresh from "@/components/pull-to-refresh";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased flex flex-col h-screen`}>
         <main className="h-full flex-1 overflow-y-auto">{children}</main>
         <Navbar />
+        <PullToRefresh />
       </body>
     </html>
   );
