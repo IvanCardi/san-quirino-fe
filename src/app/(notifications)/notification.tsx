@@ -29,11 +29,14 @@ export default function PushNotificationManager({
 }: {
   isSubscribed: boolean;
 }) {
+  const [isStandalone, setIsStandalone] = useState(false);
   const [open, setOpen] = useState(true);
 
   const router = useRouter();
 
   useEffect(() => {
+    setIsStandalone(window.matchMedia("(display-mode: standalone)").matches);
+
     if ("serviceWorker" in navigator && "PushManager" in window) {
       registerServiceWorker();
     }
@@ -90,7 +93,7 @@ export default function PushNotificationManager({
     setOpen(false);
   }
 
-  if (!isSubscribed) {
+  if (!isSubscribed && isStandalone) {
     return (
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
