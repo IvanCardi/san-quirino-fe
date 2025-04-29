@@ -10,7 +10,7 @@ export default async function Leaderboard() {
     fullName: `${a.agent.firstName} ${a.agent.lastName}`,
     type: a.agent.type,
     points: a.score,
-    office: a.agent.office.name,
+    office: a.agent.office?.name ?? "",
     image: a.agent.avatar,
   }));
 

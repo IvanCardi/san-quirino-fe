@@ -6,7 +6,7 @@ export type Challenge = {
     lastName: string;
     points: number;
     avatar: string;
-    office: { id: string; name: string };
+    office?: { id: string; name: string };
   };
   opponent: {
     id: string;
@@ -14,7 +14,7 @@ export type Challenge = {
     lastName: string;
     points: number;
     avatar: string;
-    office: { id: string; name: string };
+    office?: { id: string; name: string };
   };
   target: number;
   status: string;

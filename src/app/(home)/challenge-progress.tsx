@@ -61,7 +61,7 @@ export default function ChallengeProgress({
         <div className="flex flex-col items-center">
           <p className="font-inter font-medium text-[7px]">{`${mySelf.firstName} ${mySelf.lastName}`}</p>
           <p className="font-inter font-light text-[7px]">
-            {mySelf.office.name}
+            {mySelf.office?.name}
           </p>
         </div>
         <div className="flex flex-col items-center">
@@ -69,7 +69,7 @@ export default function ChallengeProgress({
             {`${opponent.firstName} ${opponent.lastName}`}
           </p>
           <p className="font-inter font-light text-[7px]">
-            {opponent.office.name}
+            {opponent.office?.name}
           </p>
         </div>
       </div>

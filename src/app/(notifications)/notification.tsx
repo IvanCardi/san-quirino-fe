@@ -93,7 +93,7 @@ export default function PushNotificationManager({
     setOpen(false);
   }
 
-  if (!isSubscribed && isStandalone) {
+  if (!isSubscribed) {
     return (
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>

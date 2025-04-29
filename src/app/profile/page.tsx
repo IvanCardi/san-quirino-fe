@@ -25,9 +25,9 @@ export default async function Profile({ searchParams }: PageProps) {
         <Header photo={agent.avatar} avatars={avatars} />
         <div className="min-h-3" />
         <Info
-          address={agent.office.address}
+          address={agent.office?.address ?? ""}
           fullName={`${agent.firstName} ${agent.lastName}`}
-          office={agent.office.name}
+          office={agent.office?.name ?? ""}
         />
         <div className="min-h-6" />
         <div className="px-5 flex justify-between">

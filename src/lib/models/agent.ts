@@ -6,7 +6,7 @@ export type Agent = {
   firstName: string;
   lastName: string;
   type: string;
-  office: { id: string; name: string; address: string };
+  office?: { id: string; name: string; address: string };
   actions: {
     id: string;
     fullName: string;

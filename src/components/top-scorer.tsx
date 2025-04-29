@@ -48,7 +48,13 @@ export default function TopScorer({
         </div>
         <p className="font-semibold text-[7px]">{fullName}</p>
         <p className="font-light text-[7px]">{office}</p>
-        <p className="font-normal text-[7px] capitalize">{type}</p>
+        <p className="font-normal text-[7px] capitalize">
+          {type === "news_hunter"
+            ? "Notiziere"
+            : type === "coach"
+            ? "Coach"
+            : "Responsabile"}
+        </p>
       </div>
     </Link>
   );
