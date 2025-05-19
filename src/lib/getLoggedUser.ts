@@ -10,6 +10,7 @@ export async function getLoggedUser(): Promise<
       agentId: string;
       email: string;
       type: string;
+      officeId: string;
     }
   | undefined
 > {
@@ -24,6 +25,7 @@ export async function getLoggedUser(): Promise<
       userId: payload.userId as string,
       email: payload.email as string,
       type: payload.type as string,
+      officeId: payload.officeId as string
     };
   }
 

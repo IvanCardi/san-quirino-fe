@@ -1,21 +1,36 @@
 "use client";
-import { useEffect, useState } from "react";
-import NavbarShape from "./shapes/navbar-shape";
-import Home from "./icons/home-icon";
-import Star from "./icons/star-icon";
-import Lightning from "./icons/lightning-icon";
-import Profile from "./icons/profile-icon";
-import Plus from "./icons/plus-icon";
+import { getLoggedUser } from "@/lib/getLoggedUser";
+import { Building } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import Home from "./icons/home-icon";
+import Plus from "./icons/plus-icon";
+import Profile from "./icons/profile-icon";
+import Star from "./icons/star-icon";
+import NavbarShape from "./shapes/navbar-shape";
 
 export default function Navbar() {
+  const [loggedUser, setLoggedUser] = useState<
+    | {
+        userId: string;
+        agentId: string;
+        email: string;
+        type: string;
+        officeId: string;
+      }
+    | undefined
+  >(undefined);
   const pathName = usePathname();
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
     setWidth(window.innerWidth);
+    getLoggedUser().then((res) => {
+      setLoggedUser(res);
+    });
   }, []);
+
 
   return (
     pathName !== "/login" && (
@@ -43,10 +58,10 @@ export default function Navbar() {
               <Plus />
             </div>
           </Link>
-          <Link href={"/role-leaderboard"}>
-            <Lightning
+          <Link href={`/offices/${loggedUser?.officeId}`}>
+            <Building
               className={`${
-                pathName === "/role-leaderboard" && "stroke-[#00B5FF]"
+                pathName.includes("offices") ? "stroke-[#00B5FF]" : "stroke-white"
               }`}
             />
           </Link>
