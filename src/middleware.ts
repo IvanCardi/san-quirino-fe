@@ -18,6 +18,19 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
+    const user = await getUser(accessToken);
+
+    if (!user){
+      (await cookies()).delete("access_token"); 
+      (await cookies()).delete("refresh_token");
+      
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    if (!user.isPasswordResetAfterFirstLogin && req.nextUrl.pathname !== "/reset-password"){
+      return NextResponse.redirect(new URL("/reset-password", req.url));
+    }
+
     return NextResponse.next();
   } else {
     const refreshToken = req.cookies.get("refresh_token")?.value;
@@ -82,6 +95,29 @@ async function refresh(refreshToken: string): Promise<string | undefined> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return undefined;
+  }
+}
+
+async function getUser(accessToken: string): Promise<
+  | {
+      id: string;
+      email: string;
+      isPasswordResetAfterFirstLogin: boolean;
+    }
+  | undefined
+> {
+  const result = await fetch(`${process.env.BE_BASE_URL}/users`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: "include",
+  });
+
+  if (result.status === 200) {
+    return await result.json();
   }
 }
 

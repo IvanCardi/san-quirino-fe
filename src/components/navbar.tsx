@@ -33,7 +33,7 @@ export default function Navbar() {
 
 
   return (
-    pathName !== "/login" && (
+    pathName !== "/login" && pathName !== "/reset-password" && (
       <div className="fixed bottom-0 w-screen">
         <NavbarShape width={`${width}px`} />
         <div className="absolute inset-0 flex px-8 pb-[35px] justify-between items-end">
