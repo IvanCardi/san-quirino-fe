@@ -24,16 +24,24 @@ export default function Navbar() {
   const pathName = usePathname();
   const [width, setWidth] = useState(0);
 
+  const getUser = async () => {
+    const user = await getLoggedUser();
+
+    if (user) {
+      setLoggedUser(user);
+    } else {
+      setTimeout(getUser, 500);
+    }
+  };
+
   useEffect(() => {
     setWidth(window.innerWidth);
-    getLoggedUser().then((res) => {
-      setLoggedUser(res);
-    });
+    getUser();
   }, []);
 
-
   return (
-    pathName !== "/login" && pathName !== "/reset-password" && (
+    pathName !== "/login" &&
+    pathName !== "/reset-password" && (
       <div className="fixed bottom-0 w-screen">
         <NavbarShape width={`${width}px`} />
         <div className="absolute inset-0 flex px-8 pb-[35px] justify-between items-end">
@@ -61,7 +69,9 @@ export default function Navbar() {
           <Link href={`/offices/${loggedUser?.officeId}`}>
             <Building
               className={`${
-                pathName.includes("offices") ? "stroke-[#00B5FF]" : "stroke-white"
+                pathName.includes("offices")
+                  ? "stroke-[#00B5FF]"
+                  : "stroke-white"
               }`}
             />
           </Link>

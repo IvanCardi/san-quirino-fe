@@ -47,7 +47,7 @@ export default function AcceptOrDeclineChallenge({
               <div className="flex items-end text-[12px]/[12px]">
                 <Building size={14} color="#444" />
                 <p className="text-[#444]">
-                  {challenge.challenger.office.name}
+                  {challenge.challenger.office?.name}
                 </p>
               </div>
             </div>
