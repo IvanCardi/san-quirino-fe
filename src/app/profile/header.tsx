@@ -18,9 +18,11 @@ import LogoutButton from "@/components/logout-button";
 export default function Header({
   photo,
   avatars,
+  itsMe,
 }: {
   photo: string;
   avatars: string[];
+  itsMe: boolean;
 }) {
   const onImageClick = async (avatar: string) => {
     await changeAvatar(avatar);
@@ -63,7 +65,7 @@ export default function Header({
         )}
       </div>
       <BackButton className="absolute top-[65px] left-[30px]" />
-      <LogoutButton className="absolute top-[65px] right-[30px]" />
+      {itsMe && <LogoutButton className="absolute top-[65px] right-[30px]" />}
     </div>
   );
 }

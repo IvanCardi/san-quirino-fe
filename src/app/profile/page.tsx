@@ -22,7 +22,7 @@ export default async function Profile({ searchParams }: PageProps) {
   return (
     <PageAnimation className="flex flex-col h-screen gap-6">
       <div className="h-full flex flex-col">
-        <Header photo={agent.avatar} avatars={avatars} />
+        <Header photo={agent.avatar} avatars={avatars} itsMe={itsMe} />
         <div className="min-h-3" />
         <Info
           address={agent.office?.address ?? ""}
