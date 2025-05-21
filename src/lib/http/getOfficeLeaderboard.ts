@@ -6,7 +6,7 @@ export const getOfficeLeaderboard = async (): Promise<
   const token = await getAccessToken();
 
   const agents = await fetch(`${process.env.BE_BASE_URL}/officeleaderboard`, {
-    next: { tags: ["office-leaderboard"] },
+    next: { tags: ["office-leaderboard"], revalidate: 0 },
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -7,7 +7,7 @@ export const getAgents = async (officeId?: string): Promise<Agent[]> => {
   const agents = await fetch(
     `${process.env.BE_BASE_URL}/agents?officeId=${officeId}`,
     {
-      next: { tags: ["agents"] },
+      next: { tags: ["agents"], revalidate: 0 },
       headers: {
         Authorization: `Bearer ${token}`,
       },

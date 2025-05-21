@@ -25,7 +25,7 @@ export const getLeaderboard = async (
   const agents = await fetch(
     `${process.env.BE_BASE_URL}/leaderboard${params}`,
     {
-      next: { tags: ["leaderboard"] },
+      next: { tags: ["leaderboard"], revalidate: 0 },
       headers: {
         Authorization: `Bearer ${token}`,
       },

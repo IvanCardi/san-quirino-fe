@@ -5,7 +5,7 @@ export const getMe = async (): Promise<Agent> => {
   const token = await getAccessToken();
 
   const agents = await fetch(`${process.env.BE_BASE_URL}/agents/me`, {
-    next: { tags: ["me"] },
+    next: { tags: ["me"], revalidate: 0 },
     headers: {
       Authorization: `Bearer ${token}`,
     },

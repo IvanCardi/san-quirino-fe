@@ -3,16 +3,15 @@ module.exports = {
     return [
       {
         source: "/uploads/:path*",
-        destination: "http://192.168.1.102:3000/:path*",
+        destination: "https://be-app-production-6ce5.up.railway.app/:path*",
       },
     ];
   },
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "192.168.1.102",
-        port: "3000",
+        protocol: "https",
+        hostname: "be-app-production-6ce5.up.railway.app",
         pathname: "/**",
       },
     ],
