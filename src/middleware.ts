@@ -18,16 +18,26 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
-    const user = await getUser(accessToken);
+    let user;
 
-    if (!user){
-      (await cookies()).delete("access_token"); 
+    try {
+      user = await getUser(accessToken);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      user = undefined;
+    }
+
+    if (!user) {
+      (await cookies()).delete("access_token");
       (await cookies()).delete("refresh_token");
-      
+
       return NextResponse.redirect(new URL("/login", req.url));
     }
 
-    if (!user.isPasswordResetAfterFirstLogin && req.nextUrl.pathname !== "/reset-password"){
+    if (
+      !user.isPasswordResetAfterFirstLogin &&
+      req.nextUrl.pathname !== "/reset-password"
+    ) {
       return NextResponse.redirect(new URL("/reset-password", req.url));
     }
 

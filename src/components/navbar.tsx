@@ -66,7 +66,17 @@ export default function Navbar() {
               <Plus />
             </div>
           </Link>
-          <Link href={`/offices/${loggedUser?.officeId}`}>
+          {loggedUser ? (
+            <Link href={`/offices/${loggedUser.officeId}`}>
+              <Building
+                className={`${
+                  pathName.includes("offices")
+                    ? "stroke-[#00B5FF]"
+                    : "stroke-white"
+                }`}
+              />
+            </Link>
+          ) : (
             <Building
               className={`${
                 pathName.includes("offices")
@@ -74,7 +84,8 @@ export default function Navbar() {
                   : "stroke-white"
               }`}
             />
-          </Link>
+          )}
+
           <Link href={"/profile"}>
             <Profile
               className={`${pathName === "/profile" && "fill-[#00B5FF]"}`}

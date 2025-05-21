@@ -12,10 +12,12 @@ import People from "./people";
 export default async function Home() {
   const isSubscribed = await getIsSubscribed();
 
-  const agents = (await getLeaderboard()).map((a) => ({
-    id: a.agent.id,
-    imageUrl: a.agent.avatar,
-  }));
+  const agents = (await getLeaderboard(undefined, undefined, undefined)).map(
+    (a) => ({
+      id: a.agent.id,
+      imageUrl: a.agent.avatar,
+    })
+  );
   const me = await getMe();
   const offices = await getOffices();
 
