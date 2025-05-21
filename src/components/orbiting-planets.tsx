@@ -65,7 +65,7 @@ export default function OrbitingPlanets<T>({
       className={`relative flex items-center justify-center h-[400px] bg-transparent overflow-hidden ${className}`}
     >
       {/* Central Logo */}
-      {!hideLogo && <Image src={logo} alt="logo" />}
+      {!hideLogo && <Image src={logo} alt="logo" width={100} height={200} />}
 
       {/* Orbiting Planets with 3D effect */}
       {orbitingObjects.map((planet, index) => (

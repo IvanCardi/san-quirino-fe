@@ -51,9 +51,10 @@ export default async function Profile({ searchParams }: PageProps) {
           <ActionsList actions={agent.actions} itsMe={itsMe} />
         </div>
         <div className="min-h-3" />
-        {!itsMe && !me.challenge && loggedUser?.type === agent.type && (
-          <ChallengeNow agentId={agent.id} />
-        )}
+        {!itsMe &&
+          !me.challenge &&
+          loggedUser?.type === agent.type &&
+          !agent.challenge && <ChallengeNow agentId={agent.id} />}
       </div>
     </PageAnimation>
   );
