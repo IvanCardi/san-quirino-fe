@@ -79,9 +79,9 @@ export default function LoginForm() {
             )}
           />
         </div>
-        <p className="uppercase underline text-[14px] text-[#05244F]">
+        {/* <p className="uppercase underline text-[14px] text-[#05244F]">
           Password dimenticata
-        </p>
+        </p> */}
         <FormMessage
           {...(form.formState.errors.root && {
             children: form.formState.errors.root.message,

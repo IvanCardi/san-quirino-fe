@@ -59,18 +59,18 @@ export default function ChallengeProgress({
       </div>
       <div className="w-full flex justify-between">
         <div className="flex flex-col items-center">
-          <p className="font-inter font-medium text-[7px]">{`${mySelf.firstName} ${mySelf.lastName}`}</p>
-          <p className="font-inter font-light text-[7px]">
+          <p className="font-inter font-bold text-[12px]">{`${mySelf.firstName} ${mySelf.lastName}`}</p>
+          {/* <p className="font-inter font-light text-[12px]">
             {mySelf.office?.name}
-          </p>
+          </p> */}
         </div>
         <div className="flex flex-col items-center">
-          <p className="font-inter font-medium text-[7px]">
+          <p className="font-inter font-bold text-[12px]">
             {`${opponent.firstName} ${opponent.lastName}`}
           </p>
-          <p className="font-inter font-light text-[7px]">
+         {/*  <p className="font-inter font-light text-[7px]">
             {opponent.office?.name}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

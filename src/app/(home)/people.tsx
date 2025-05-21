@@ -13,7 +13,7 @@ export default function People({ people }: PeopleProps) {
     <div className="pl-8 w-screen h-fit py-1 bg-[#0077B64A] rounded-l-full flex flex-nowrap gap-4 overflow-x-auto">
       {people.map((p) => (
         <Link key={p.id} href={`/profile?agentId=${p.id}`}>
-          <CircleAvatar {...p} />
+          <CircleAvatar {...p} className="min-w-[76px]" />
         </Link>
       ))}
     </div>
