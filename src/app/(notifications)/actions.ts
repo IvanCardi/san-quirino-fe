@@ -10,7 +10,7 @@ import { PushSubscription } from "web-push";
 
 export async function subscribeUser(pushSub: PushSubscription) {
   const token = await getAccessToken();
-  await fetch("http://localhost:3000/subscriptions", {
+  await fetch(`${process.env.BE_BASE_URL}/subscriptions`, {
     method: "POST",
     body: JSON.stringify({
       pushSub,
