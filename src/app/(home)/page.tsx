@@ -21,8 +21,6 @@ export default async function Home() {
   const me = await getMe();
   const offices = await getOffices();
 
-  console.log(offices);
-
   return (
     <PageAnimation className="flex flex-col gap-6 pt-6 pb-[120px]">
       <People people={agents} />

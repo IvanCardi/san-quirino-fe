@@ -1,0 +1,23 @@
+{
+  "name": "Andromeda",
+  "short_name": "Andromeda",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "any",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    { "src": "icons/andromeda-logo-16.png", "type": "image/png", "sizes": "16x16" },
+    { "src": "icons/andromeda-logo-48.png", "type": "image/png", "sizes": "48x48" },
+    { "src": "icons/andromeda-logo-64.png", "type": "image/png", "sizes": "64x64" },
+    { "src": "icons/andromeda-logo-128.png", "type": "image/png", "sizes": "128x128" },
+    { "src": "icons/andromeda-logo-144.png", "type": "image/png", "sizes": "144x144" },
+    { "src": "icons/andromeda-logo-152.png", "type": "image/png", "sizes": "152x152" },
+    { "src": "icons/andromeda-logo-180.png", "type": "image/png", "sizes": "180x180" },
+    { "src": "icons/andromeda-logo-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "icons/andromeda-logo-256.png", "type": "image/png", "sizes": "256x256" },
+    { "src": "icons/andromeda-logo-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "splash_pages": null
+}
