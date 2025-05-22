@@ -10,6 +10,8 @@ export type Office = {
     id: string;
     name: string;
   };
+  logo: string;
+  cover: string;
 };
 
 export function getOfficeAddress(office: Office): string {

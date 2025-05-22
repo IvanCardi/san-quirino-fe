@@ -21,7 +21,7 @@ export default async function Office(props: PageProps) {
 
   return (
     <PageAnimation className="flex flex-col h-screen">
-      <Header cover="/uploads/cover.png" logo="/uploads/logo.png" />
+      <Header cover={office.cover} logo={office.logo} />
       <div className="min-h-2" />
       <div className="relative">
         <Info

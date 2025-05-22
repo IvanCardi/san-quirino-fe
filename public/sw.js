@@ -1,6 +1,6 @@
 // Your existing push, notificationclick, message listeners...
 
-self.addEventListener('fetch', function (event) {
+/* self.addEventListener('fetch', function (event) {
   // You can leave this empty if you don't need offline support *yet*
   // but it's better to have a basic strategy.
   // For example, a simple network-first strategy:
@@ -49,7 +49,7 @@ self.addEventListener('activate', function() {
   //   })
   // );
   return self.clients.claim(); // Becomes available to all clients
-});
+}); */
 
 
 self.addEventListener('push', function (event) {

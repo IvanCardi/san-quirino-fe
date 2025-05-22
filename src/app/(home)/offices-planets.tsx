@@ -16,7 +16,7 @@ export default function OfficesPlanets(props: { offices: Office[] }) {
         >
           <img
             className=" w-full object-contain"
-            src={"/uploads/logo.png"}
+            src={planet.logo}
             alt="office"
           />
         </div>
