@@ -1,3 +1,57 @@
+// Your existing push, notificationclick, message listeners...
+
+self.addEventListener('fetch', function (event) {
+  // You can leave this empty if you don't need offline support *yet*
+  // but it's better to have a basic strategy.
+  // For example, a simple network-first strategy:
+  // event.respondWith(fetch(event.request));
+
+  // Or, to simply fulfill the requirement if you're not ready for caching:
+  // console.log('Fetch event for:', event.request.url);
+  // return; // Allowing the browser to handle it normally by not calling event.respondWith()
+  // However, to be more robust for installability, actually responding is better.
+  event.respondWith(
+    fetch(event.request).catch(function() {
+      // Optional: Return a custom offline page if fetch fails
+      // return caches.match('/offline.html');
+    })
+  );
+});
+
+// It's also good practice to have install and activate listeners
+self.addEventListener('install', function() {
+  console.log('Service Worker: Install');
+  // Optional: Cache essential assets here
+  // event.waitUntil(
+  //   caches.open('your-cache-name').then(function(cache) {
+  //     return cache.addAll([
+  //       '/',
+  //       '/styles/main.css',
+  //       '/script/main.js'
+  //     ]);
+  //   })
+  // );
+  self.skipWaiting(); // Forces the waiting service worker to become the active service worker
+});
+
+self.addEventListener('activate', function() {
+  console.log('Service Worker: Activate');
+  // Optional: Clean up old caches here
+  // event.waitUntil(
+  //   caches.keys().then(function(cacheNames) {
+  //     return Promise.all(
+  //       cacheNames.map(function(cacheName) {
+  //         if (cacheName !== 'your-cache-name') {
+  //           return caches.delete(cacheName);
+  //         }
+  //       })
+  //     );
+  //   })
+  // );
+  return self.clients.claim(); // Becomes available to all clients
+});
+
+
 self.addEventListener('push', function (event) {
   if (event.data) {
     const data = event.data.json()
