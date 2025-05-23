@@ -35,7 +35,7 @@ export default function LoginForm() {
     const response = await login(values.email, values.password);
 
     if (response.status === "ok") {
-      router.push("/");
+      router.push("/home");
     } else {
       if (response.message === "InvalidCredentials") {
         form.setError("root", { message: "Nome utente o password errati" });

@@ -41,7 +41,8 @@ export default function Navbar() {
 
   return (
     pathName !== "/login" &&
-    pathName !== "/reset-password" && (
+    pathName !== "/reset-password" &&
+    pathName !== "/" && (
       <>
         <div className="min-h-[110px]"></div>
         <div className="fixed bottom-0 w-screen">

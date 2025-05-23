@@ -7,22 +7,30 @@ import { NextResponse } from "next/server";
 const ACCESS_SECRET = process.env.ACCESS_SECRET ?? "";
 
 export async function middleware(req: NextRequest) {
+  if (req.nextUrl.pathname === "/") {
+    return NextResponse.next();
+  }
+
   const accessToken = req.cookies.get("access_token")?.value;
 
   if (!accessToken) {
+    if (req.nextUrl.pathname === "/login") {
+      return NextResponse.next();
+    }
+
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
   if (await isAuthenticated(accessToken)) {
     if (req.nextUrl.pathname === "/login") {
-      return NextResponse.redirect(new URL("/", req.url));
+      return NextResponse.redirect(new URL("/home", req.url));
     }
 
     let user;
 
     try {
       user = await getUser(accessToken);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       user = undefined;
     }
@@ -64,7 +72,7 @@ export async function middleware(req: NextRequest) {
       });
 
       if (req.nextUrl.pathname === "/login") {
-        return NextResponse.redirect(new URL("/", req.url));
+        return NextResponse.redirect(new URL("/home", req.url));
       }
 
       return NextResponse.next();
@@ -134,6 +142,7 @@ async function getUser(accessToken: string): Promise<
 // Apply middleware to protected routes
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|login|manifest).*)",
-  ], // Protects any route under `/dashboard`
+        "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|login|manifest.json|manifest.webmanifest|sw.js|web-app-manifest-192x192.png|web-app-manifest-512x512.png).*)",
+
+  ],
 };

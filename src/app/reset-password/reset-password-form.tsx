@@ -54,7 +54,7 @@ export default function ResetPasswordForm() {
     if (result.status === "error") {
       form.setError("root", { message: result.message });
     } else {
-      router.push("/");
+      router.push("/home");
     }
   };
 

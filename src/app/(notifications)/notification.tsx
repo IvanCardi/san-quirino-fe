@@ -36,10 +36,10 @@ export default function PushNotificationManager({
   useEffect(() => {
     // setIsStandalone(window.matchMedia("(display-mode: standalone)").matches);
 
-    if ("serviceWorker" in navigator && "PushManager" in window) {
+   /*  if ("serviceWorker" in navigator && "PushManager" in window) {
       registerServiceWorker();
     }
-
+ */
     if (isSubscribed) {
       checkSubscription().then((res) => {
         if (!res) {
@@ -72,12 +72,12 @@ export default function PushNotificationManager({
     return !!(await registration.pushManager.getSubscription());
   }
 
-  async function registerServiceWorker() {
+/*   async function registerServiceWorker() {
     await navigator.serviceWorker.register("/sw.js", {
       scope: "/",
       updateViaCache: "none",
     });
-  }
+  } */
 
   async function subscribeToPush() {
     try {
