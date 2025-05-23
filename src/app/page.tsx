@@ -21,20 +21,20 @@ export default function Page() {
           });
           console.log("Service Worker registered successfully");
           if (isMounted) {
-            // router.push("/home"); // Redirect after successful registration
+            router.push("/home"); // Redirect after successful registration
           }
         } catch (error) {
           console.error("Service Worker registration failed:", error);
           // Decide if you still want to redirect or show an error
           if (isMounted) {
             // Potentially still redirect, or handle error
-            // router.push("/home");
+            router.push("/home");
           }
         }
       } else {
         // Fallback if SW or PushManager not supported
         if (isMounted) {
-          // router.push("/home");
+          router.push("/home");
         }
       }
     }
