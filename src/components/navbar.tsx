@@ -48,7 +48,7 @@ export default function Navbar() {
         <div className="fixed bottom-0 w-screen">
           <NavbarShape width={`${width}px`} />
           <div className="absolute inset-0 flex px-8 pb-[35px] justify-between items-end">
-            <Link href={"/"}>
+            <Link href={"/home"}>
               <Home className={`${pathName === "/" && "stroke-[#00B5FF]"}`} />
             </Link>
             <Link href={"/general-leaderboard"}>
