@@ -3,13 +3,22 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import logo from "../../public/andromeda-logo.png"
+import { useEffect, useState } from "react";
+import logo from "../../public/andromeda-logo.png";
 
 export default function Page() {
   const router = useRouter();
+  const [isStandalone, setIsStandalone] = useState<boolean | null>(null);
 
   useEffect(() => {
+    const standalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window.navigator as any).standalone === true;
+    setIsStandalone(standalone);
+
+    if (!standalone) return; // Don't register SW or redirect if not in standalone
+
     let isMounted = true; // Prevent state updates on unmounted component
 
     async function registerAndRedirect() {
@@ -44,12 +53,17 @@ export default function Page() {
     return () => {
       isMounted = false;
     };
-  }, [router]); // router can be a dependency if used, though here it might be stable
+  }, []); // router can be a dependency if used, though here it might be stable
 
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center">
-      <Image src={logo} alt="logo" width={200} height={200}/>
+      <Image src={logo} alt="logo" width={200} height={200} />
       <h1 className="text-[36px]/[36px] font-bold text-[#006e91]">ANDROMEDA</h1>
+      {!isStandalone && (
+        <p className="mt-6 text-gray-600 max-w-md font-bold">
+          Installa l&apos;app sul tuo dispositivo!
+        </p>
+      )}
     </div>
-  ); // Or a proper loading/splash screen
+  );
 }
