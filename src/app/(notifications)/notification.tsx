@@ -2,6 +2,7 @@
 import { getToken, messaging, onMessage } from "@/lib/firebaseClient";
 import { useEffect } from "react";
 import { subscribeUser } from "./actions";
+import { toast } from "sonner";
 
 export default function PushNotificationManager() {
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function PushNotificationManager() {
     // Foreground message listener
     const unsubscribe = onMessage(messaging, (payload) => {
       console.log("Message received: ", payload);
-      // Show custom toast or modal here
+      toast(payload.data?.title);
     });
 
     return () => {
