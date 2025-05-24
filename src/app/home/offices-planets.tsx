@@ -8,6 +8,7 @@ export default function OfficesPlanets(props: { offices: Office[] }) {
   const router = useRouter();
   return (
     <OrbitingPlanets
+      hideLogo
       planets={props.offices}
       PlanetRender={({ planet }) => (
         <div

@@ -21,6 +21,14 @@ export default async function Home() {
 
   return (
     <PageAnimation className="flex flex-col gap-6 pt-6 pb-[120px]">
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover z-[-2]"
+        src="/background-loop.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
       <People people={agents} />
       <OfficesPlanets offices={offices} />
       {!me.challenge && (
