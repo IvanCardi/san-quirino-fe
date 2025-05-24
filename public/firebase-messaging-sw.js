@@ -12,11 +12,11 @@ firebase.initializeApp({
   measurementId: "G-TQ57M3RPNP"
 });
 
-firebase.messaging();
+const messaging = firebase.messaging();
 
-/* messaging.onBackgroundMessage(function (payload) {
+messaging.onBackgroundMessage(function (payload) {
   self.registration.showNotification(payload.notification.title, {
     body: payload.notification.body,
     icon: '/web-app-manifest-192x192.png',
   });
-}); */
+});
