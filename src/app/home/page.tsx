@@ -7,9 +7,9 @@ import AcceptOrDeclineChallenge from "./accept-or-decline-challenge";
 import ChallengeProgress from "./challenge-progress";
 import OfficesPlanets from "./offices-planets";
 import People from "./people";
+import ChallengeNowButton from "@/components/challenge-now";
 
 export default async function Home() {
-
   const agents = (await getLeaderboard(undefined, undefined, undefined)).map(
     (a) => ({
       id: a.agent.id,
@@ -23,6 +23,12 @@ export default async function Home() {
     <PageAnimation className="flex flex-col gap-6 pt-6 pb-[120px]">
       <People people={agents} />
       <OfficesPlanets offices={offices} />
+      {!me.challenge && (
+        <div className="m-auto">
+          <div className="h-5"></div>
+          <ChallengeNowButton />
+        </div>
+      )}
       {me.challenge?.status === "pending" &&
         me.challenge.opponent.id === me.id && (
           <AcceptOrDeclineChallenge challenge={me.challenge} />
