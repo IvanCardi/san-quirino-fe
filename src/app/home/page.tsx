@@ -1,5 +1,4 @@
 import PageAnimation from "@/components/page-animation";
-import { getIsSubscribed } from "@/lib/http/getIsSubscribed";
 import { getLeaderboard } from "@/lib/http/getLeaderboard";
 import { getMe } from "@/lib/http/getMe";
 import { getOffices } from "@/lib/http/getOffices";
@@ -10,7 +9,6 @@ import OfficesPlanets from "./offices-planets";
 import People from "./people";
 
 export default async function Home() {
-  const isSubscribed = await getIsSubscribed();
 
   const agents = (await getLeaderboard(undefined, undefined, undefined)).map(
     (a) => ({
@@ -32,7 +30,7 @@ export default async function Home() {
       {me.challenge?.status === "in_progress" && (
         <ChallengeProgress challenge={me.challenge} me={me.id} />
       )}
-      <PushNotificationManager isSubscribed={isSubscribed} />
+      <PushNotificationManager />
     </PageAnimation>
   );
 }
