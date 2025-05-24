@@ -3,6 +3,8 @@ import { getToken, messaging, onMessage } from "@/lib/firebaseClient";
 import { useEffect } from "react";
 import { subscribeUser } from "./actions";
 import { toast } from "sonner";
+import Image from "next/image";
+import logo from "../../../public/andromeda-logo.png";
 
 export default function PushNotificationManager() {
   useEffect(() => {
@@ -38,7 +40,15 @@ export default function PushNotificationManager() {
     // Foreground message listener
     const unsubscribe = onMessage(messaging, (payload) => {
       console.log("Message received: ", payload);
-      toast(payload.data?.title);
+      toast(payload.data?.title, {
+        position: "top-center",
+        description: payload.data?.body,
+        icon: <Image src={logo} alt="logo" width={50} height={50} />,
+      });
+
+      if (typeof window !== "undefined" && "vibrate" in navigator) {
+        navigator.vibrate([100, 50, 100]); // Vibrate for 200ms
+      }
     });
 
     return () => {
