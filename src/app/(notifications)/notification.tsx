@@ -40,9 +40,9 @@ export default function PushNotificationManager() {
     // Foreground message listener
     const unsubscribe = onMessage(messaging, (payload) => {
       console.log("Message received: ", payload);
-      toast(payload.data?.title, {
+      toast(payload.notification?.title, {
         position: "top-center",
-        description: payload.data?.body,
+        description: payload.notification?.body,
         icon: <Image src={logo} alt="logo" width={50} height={50} />,
       });
 
