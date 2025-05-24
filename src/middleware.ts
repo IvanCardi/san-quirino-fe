@@ -142,7 +142,6 @@ async function getUser(accessToken: string): Promise<
 // Apply middleware to protected routes
 export const config = {
   matcher: [
-        "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|login|manifest.json|manifest.webmanifest|sw.js|web-app-manifest-192x192.png|web-app-manifest-512x512.png).*)",
-
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|login|manifest.json|manifest.webmanifest|sw.js|firebase-messaging-sw.js|web-app-manifest-192x192.png|web-app-manifest-512x512.png).*)",
   ],
 };

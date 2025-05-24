@@ -24,7 +24,7 @@ export default function Page() {
     async function registerAndRedirect() {
       if ("serviceWorker" in navigator && "PushManager" in window) {
         try {
-          await navigator.serviceWorker.register("/sw.js", {
+          await navigator.serviceWorker.register("/firebase-messaging-sw.js", {
             scope: "/", // This scope is good
             // updateViaCache: "none", // 'none' is okay for development, consider defaults for production
           });
