@@ -68,7 +68,10 @@ export async function middleware(req: NextRequest) {
         name: "access_token",
         value: accessToken ?? "",
         path: "/",
+        sameSite: "none", // <‑‑ must be 'none'
+        secure: true,
         httpOnly: true,
+        maxAge: 60 * 60,
       });
 
       if (req.nextUrl.pathname === "/login") {

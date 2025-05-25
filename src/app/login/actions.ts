@@ -35,6 +35,7 @@ export async function login(
       sameSite: "none", // <‑‑ must be 'none'
       secure: true,
       httpOnly: true,
+      maxAge: 60 * 60,
     });
     (await cookies()).set({
       name: "refresh_token",
@@ -43,6 +44,7 @@ export async function login(
       sameSite: "none", // <‑‑ must be 'none'
       secure: true,
       httpOnly: true,
+      maxAge: 60 * 60 * 24 * 7, // 7 days
     });
 
     return { status: "ok" };
