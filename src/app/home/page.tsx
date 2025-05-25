@@ -33,7 +33,7 @@ export default async function Home() {
   const offices = await getOffices();
 
   return (
-    <PageAnimation className="flex flex-col gap-6 pt-6 pb-[120px]">
+    <PageAnimation className="flex flex-col gap-6 pt-6 h-full">
       <video
         className="absolute top-[-70px] left-0 w-full h-full object-cover z-[-2]"
         src="/background-loop.mp4"
@@ -78,7 +78,10 @@ export default async function Home() {
           <AcceptOrDeclineChallenge challenge={me.challenge} />
         )}
       {me.challenge?.status === "in_progress" && (
-        <ChallengeProgress challenge={me.challenge} me={me.id} />
+        <>
+          <div className="h-10" />
+          <ChallengeProgress challenge={me.challenge} me={me.id} />
+        </>
       )}
       <PushNotificationManager />
     </PageAnimation>

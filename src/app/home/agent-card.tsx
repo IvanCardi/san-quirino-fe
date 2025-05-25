@@ -15,7 +15,7 @@ export default function AgentCard({
 
   return (
     <div
-      className="flex gap-2 items-center w-full mx-4 pb-1.5"
+      className="flex gap-2 items-center w-full px-4 pb-1.5"
       onClick={() => onNewChallenge(agent.id)}
     >
       <CircleAvatar imageUrl={agent.imageUrl} className="w-[50px] h-[50px]" />
