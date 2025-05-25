@@ -1,4 +1,13 @@
+import ChallengeNowButton from "@/components/challenge-now";
 import PageAnimation from "@/components/page-animation";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { getLeaderboard } from "@/lib/http/getLeaderboard";
 import { getMe } from "@/lib/http/getMe";
 import { getOffices } from "@/lib/http/getOffices";
@@ -7,13 +16,17 @@ import AcceptOrDeclineChallenge from "./accept-or-decline-challenge";
 import ChallengeProgress from "./challenge-progress";
 import OfficesPlanets from "./offices-planets";
 import People from "./people";
-import ChallengeNowButton from "@/components/challenge-now";
+import AgentCard from "./agent-card";
 
 export default async function Home() {
   const agents = (await getLeaderboard(undefined, undefined, undefined)).map(
     (a) => ({
       id: a.agent.id,
+      fullName: `${a.agent.firstName} ${a.agent.lastName}`,
       imageUrl: a.agent.avatar,
+      type: a.agent.type,
+      inChallenge: a.agent.challenge !== undefined,
+      office: a.agent.office?.name ?? "",
     })
   );
   const me = await getMe();
@@ -21,20 +34,43 @@ export default async function Home() {
 
   return (
     <PageAnimation className="flex flex-col gap-6 pt-6 pb-[120px]">
-      <video
+      {/*   <video
         className="absolute top-0 left-0 w-full h-full object-cover z-[-2]"
         src="/background-loop.mp4"
         autoPlay
         loop
         muted
         playsInline
-      />
+      /> */}
       <People people={agents} />
       <OfficesPlanets offices={offices} />
       {!me.challenge && (
         <div className="m-auto">
           <div className="h-5"></div>
-          <ChallengeNowButton />
+          <Drawer>
+            <DrawerTrigger>
+              <ChallengeNowButton />
+            </DrawerTrigger>
+            <DrawerContent className="pb-4">
+              <DrawerHeader>
+                <DrawerTitle className="!text-[40px]">
+                  Chi vuoi sfidare?
+                </DrawerTitle>
+              </DrawerHeader>
+              <div className="flex w-full flex-wrap gap-10 overflow-y-scroll items-center justify-center">
+                {agents
+                  .filter(
+                    (a) =>
+                      a.id !== me.id && a.type === me.type && !a.inChallenge
+                  )
+                  .map((a) => (
+                    <DrawerClose key={a.id} className="w-full">
+                      <AgentCard agent={a} />
+                    </DrawerClose>
+                  ))}
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
       )}
       {me.challenge?.status === "pending" &&

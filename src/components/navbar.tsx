@@ -49,7 +49,7 @@ export default function Navbar() {
           <NavbarShape width={`${width}px`} />
           <div className="absolute inset-0 flex px-8 pb-[35px] justify-between items-end">
             <Link href={"/home"}>
-              <Home className={`${pathName === "/" && "stroke-[#00B5FF]"}`} />
+              <Home className={`${pathName === "/home" && "stroke-[#00B5FF]"}`} />
             </Link>
             <Link href={"/general-leaderboard"}>
               <Star

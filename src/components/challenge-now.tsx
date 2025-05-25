@@ -1,11 +1,11 @@
-"use client"
-import React from 'react';
-import styled from 'styled-components';
+"use client";
+import React from "react";
+import styled from "styled-components";
 
 const ChallengeNowButton = () => {
   return (
     <StyledWrapper>
-      <button type="button" className="button">
+      <div className="button w-[150px]">
         <span className="fold" />
         <div className="points_wrapper">
           <i className="point" />
@@ -19,12 +19,25 @@ const ChallengeNowButton = () => {
           <i className="point" />
           <i className="point" />
         </div>
-        <span className="inner"><svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
-            <polyline points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37" /></svg>Sfida</span>
-      </button>
+        <span className="inner">
+          <svg
+            className="icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2.5"
+          >
+            <polyline points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37" />
+          </svg>
+          <p>Sfida</p>
+        </span>
+      </div>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .button {
@@ -195,9 +208,7 @@ const StyledWrapper = styled.div`
   }
   .button:hover svg.icon {
     fill: transparent;
-    animation:
-      dasharray 1s linear forwards,
-      filled 0.1s linear forwards 0.95s;
+    animation: dasharray 1s linear forwards, filled 0.1s linear forwards 0.95s;
   }
   @keyframes dasharray {
     from {
@@ -211,6 +222,7 @@ const StyledWrapper = styled.div`
     to {
       fill: white;
     }
-  }`;
+  }
+`;
 
 export default ChallengeNowButton;
