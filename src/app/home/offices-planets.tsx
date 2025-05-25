@@ -12,11 +12,11 @@ export default function OfficesPlanets(props: { offices: Office[] }) {
       planets={props.offices}
       PlanetRender={({ planet }) => (
         <div
-          className="min-w-[40px] max-w-[40px] min-h-[40px] max-h-[40px] flex justify-center items-center"
+          className="min-w-[40px] max-w-[40px] min-h-[40px] max-h-[40px] flex justify-center items-center bg-white rounded-full"
           onClick={() => router.push(`/offices/${planet.id}`)}
         >
           <img
-            className=" w-full object-contain"
+            className="w-full object-contain"
             src={planet.logo}
             alt="office"
           />
