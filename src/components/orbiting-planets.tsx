@@ -62,7 +62,7 @@ export default function OrbitingPlanets<T>({
 
   return (
     <div
-      className={`relative flex items-center justify-center h-[400px] bg-transparent overflow-hidden ${className}`}
+      className={`relative flex items-center justify-center min-h-[400px] bg-transparent overflow-hidden ${className}`}
     >
       {/* Central Logo */}
       {!hideLogo && <Image src={logo} alt="logo" width={100} height={200} />}

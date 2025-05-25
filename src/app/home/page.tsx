@@ -46,7 +46,6 @@ export default async function Home() {
       <OfficesPlanets offices={offices} />
       {!me.challenge && (
         <div className="m-auto">
-          <div className="h-20"></div>
           <Drawer>
             <DrawerTrigger>
               <ChallengeNowButton />
