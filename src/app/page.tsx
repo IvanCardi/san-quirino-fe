@@ -17,7 +17,7 @@ export default function Page() {
       (window.navigator as any).standalone === true;
     setIsStandalone(standalone);
 
-    // if (!standalone) return; // Don't register SW or redirect if not in standalone
+    if (!standalone) return; // Don't register SW or redirect if not in standalone
 
     let isMounted = true; // Prevent state updates on unmounted component
 
