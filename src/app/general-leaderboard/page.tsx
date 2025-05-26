@@ -28,7 +28,7 @@ export default async function Leaderboard(props: PageProps) {
   const offices = await getOffices();
 
   return (
-    <PageAnimation className="flex flex-col h-screen gap-6 w-full">
+    <PageAnimation className="flex flex-col h-full gap-6 w-full">
       <LeaderboardHeader
         title="Leaderboard"
         subtitle="Le leggende del mese"

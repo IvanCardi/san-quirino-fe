@@ -20,9 +20,14 @@ export default async function Profile({ searchParams }: PageProps) {
   const avatars = itsMe ? await getAvatars() : [];
 
   return (
-    <PageAnimation className="flex flex-col h-screen gap-6">
+    <PageAnimation className="flex flex-col h-full gap-6">
       <div className="h-full flex flex-col">
-        <Header photo={agent.avatar} avatars={avatars} itsMe={itsMe} />
+        <Header
+          photo={agent.avatar}
+          avatars={avatars}
+          itsMe={itsMe}
+          nickname={agent.nickname}
+        />
         <div className="min-h-3" />
         <Info
           address={agent.office?.address ?? ""}

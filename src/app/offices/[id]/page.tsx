@@ -20,7 +20,7 @@ export default async function Office(props: PageProps) {
   const score = officeLeaderboard[index].score;
 
   return (
-    <PageAnimation className="flex flex-col h-screen">
+    <PageAnimation className="flex flex-col h-full">
       <Header cover={office.cover} logo={office.logo} />
       <div className="min-h-2" />
       <div className="relative">

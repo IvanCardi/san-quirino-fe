@@ -19,4 +19,5 @@ export type Agent = {
   officeRank: number;
   avatar: string;
   challenge?: Challenge;
+  nickname: string;
 };

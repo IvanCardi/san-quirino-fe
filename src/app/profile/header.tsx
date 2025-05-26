@@ -2,6 +2,7 @@
 "use client";
 import BackButton from "@/components/back-button";
 import CircleAvatar from "@/components/circle-avatar";
+import LogoutButton from "@/components/logout-button";
 import {
   Drawer,
   DrawerClose,
@@ -10,20 +11,26 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { Edit2 } from "lucide-react";
 import Image from "next/image";
 import header from "../../../public/profile-header.png";
 import { changeAvatar } from "./actions";
-import LogoutButton from "@/components/logout-button";
+import EditNicknameForm from "./edit-nickname-form";
+import { useState } from "react";
 
 export default function Header({
   photo,
   avatars,
   itsMe,
+  nickname,
 }: {
   photo: string;
   avatars: string[];
   itsMe: boolean;
+  nickname: string;
 }) {
+  const [open, setOpen] = useState(false);
+
   const onImageClick = async (avatar: string) => {
     await changeAvatar(avatar);
   };
@@ -35,7 +42,7 @@ export default function Header({
         alt="header"
         className="w-full h-[150px] object-cover"
       ></Image>
-      <div className="absolute bottom-0" style={{ left: "calc(50% - 38px)" }}>
+      <div className="absolute bottom-[-10px] flex flex-col items-center left-0 right-0 gap-2">
         {avatars.length === 0 ? (
           <CircleAvatar id="id" imageUrl={photo}></CircleAvatar>
         ) : (
@@ -63,6 +70,27 @@ export default function Header({
             </DrawerContent>
           </Drawer>
         )}
+        <div className="flex gap-1 items-center">
+          <p>{nickname}</p>
+          {itsMe && (
+            <Drawer open={open} onOpenChange={setOpen}>
+              <DrawerTrigger>
+                <Edit2 size={16} />
+              </DrawerTrigger>
+              <DrawerContent className="pb-5">
+                <DrawerHeader>
+                  <DrawerTitle className="!text-[40px]">
+                    Modifica nickname
+                  </DrawerTitle>
+                </DrawerHeader>
+                <EditNicknameForm
+                  nickname={nickname}
+                  closeDrawer={() => setOpen(false)}
+                />
+              </DrawerContent>
+            </Drawer>
+          )}
+        </div>
       </div>
       <BackButton className="absolute top-[65px] left-[30px]" />
       {itsMe && <LogoutButton className="absolute top-[65px] right-[30px]" />}
