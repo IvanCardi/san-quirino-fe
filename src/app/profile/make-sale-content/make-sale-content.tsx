@@ -113,10 +113,10 @@ export default function MakeSaleContent({
               name="commission"
               render={({ field }) => (
                 <FormItem className="w-[240px]">
-                  <FormLabel>Commissione</FormLabel>
+                  <FormLabel>Punteggio</FormLabel>
                   <FormControl>
                     <RoundedInput
-                      placeholder="Commissione"
+                      placeholder="Punteggio"
                       type="number"
                       {...field}
                     />
