@@ -39,7 +39,7 @@ export default function ActionsList({
           </div>
         </div>
       </div>
-      <div className={`h-full flex-1 overflow-y-auto px-5  pb-[113px]`}>
+      <div className={`h-full flex-1 overflow-y-auto px-5`}>
         <div className="flex flex-col gap-2">
           {itsMe ? (
             <Drawer

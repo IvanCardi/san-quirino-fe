@@ -55,7 +55,7 @@ export default async function Profile({ searchParams }: PageProps) {
         <div className="flex-grow overflow-scroll">
           <ActionsList actions={agent.actions} itsMe={itsMe} />
         </div>
-        <div className="min-h-3" />
+        <div className="min-h-1" />
         {!itsMe &&
           !me.challenge &&
           loggedUser?.type === agent.type &&
