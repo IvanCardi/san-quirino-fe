@@ -1,7 +1,7 @@
 "use client";
 import { motion, useAnimationFrame } from "framer-motion";
-import { ReactNode, useState } from "react";
-import logo from "../..//public/andromeda-logo.png";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import logo from "../../public/andromeda-logo.png";
 import Image from "next/image";
 
 export default function OrbitingPlanets<T>({
@@ -16,58 +16,89 @@ export default function OrbitingPlanets<T>({
   PlanetRender: (props: { planet: T }) => ReactNode;
 }) {
   const [angle, setAngle] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Slow down the animation by changing the angle increment
-  const speedFactor = 0.3 / planets.length; // Smaller value makes the animation slower
+  const speedFactor = 0.3 / planets.length;
 
+  // Auto-rotate the orbit
   useAnimationFrame(() => {
-    setAngle((prev) => (prev + speedFactor) % 360); // Increment by a smaller amount for slower animation
+    setAngle((prev) => (prev + speedFactor) % 360);
   });
 
-  const radiusX = 250; // Horizontal radius
-  const radiusY = 150; // Vertical radius
+  // Manual swipe interaction
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (touchStartX.current !== null) {
+        const currentX = e.touches[0].clientX;
+        const deltaX = currentX - touchStartX.current;
+        setAngle((prev) => (prev - deltaX * 0.3) % 360); // 👈 Inverted direction
+        touchStartX.current = currentX;
+      }
+    };
+
+    const handleTouchEnd = () => {
+      touchStartX.current = null;
+    };
+
+    container.addEventListener("touchstart", handleTouchStart, { passive: true });
+    container.addEventListener("touchmove", handleTouchMove, { passive: true });
+    container.addEventListener("touchend", handleTouchEnd);
+    container.addEventListener("touchcancel", handleTouchEnd);
+
+    return () => {
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchmove", handleTouchMove);
+      container.removeEventListener("touchend", handleTouchEnd);
+      container.removeEventListener("touchcancel", handleTouchEnd);
+    };
+  }, []);
+
+  const radiusX = 250;
+  const radiusY = 150;
   const centerX = 0;
   const centerY = 0;
-  const numberOfObjects = planets.length; // Number of objects orbiting
-  const angleStep = 360 / numberOfObjects; // Angle difference between objects
+  const numberOfObjects = planets.length;
+  const angleStep = 360 / numberOfObjects;
 
-  const orbitingObjects = Array.from(
-    { length: numberOfObjects },
-    (_, index) => {
-      // Calculate angle for each object, spaced evenly
-      const objectAngle = angle + index * angleStep;
+  const orbitingObjects = Array.from({ length: numberOfObjects }, (_, index) => {
+    const objectAngle = angle + index * angleStep;
+    const x = parseFloat(
+      (centerX + radiusX * Math.cos(objectAngle * (Math.PI / 180))).toFixed(6)
+    );
+    const y = parseFloat(
+      (centerY + radiusY * Math.sin(objectAngle * (Math.PI / 180))).toFixed(6)
+    );
 
-      // Calculate X, Y positions for each object
-      const x = parseFloat(
-        (centerX + radiusX * Math.cos(objectAngle * (Math.PI / 180))).toFixed(6)
-      );
-      const y = parseFloat(
-        (centerY + radiusY * Math.sin(objectAngle * (Math.PI / 180))).toFixed(6)
-      );
+    const scale = 1 + (y + radiusY) / (2 * radiusY);
+    const opacity = 0.8 + ((y + radiusY) / (2 * radiusY)) * 0.4;
+    const zIndex = y > 0 ? 2 : 0;
 
-      // Depth effect: Scale & opacity based on Y position
-      const scale = 1 + (y + radiusY) / (2 * radiusY); // Smaller when at the top
-      const opacity = 0.8 + ((y + radiusY) / (2 * radiusY)) * 0.4; // More transparent when at the top
-      const zIndex = y > 0 ? 2 : 0; // In front when at bottom, behind when at top
-
-      return {
-        x,
-        y,
-        scale,
-        opacity,
-        zIndex,
-      };
-    }
-  );
+    return {
+      x,
+      y,
+      scale,
+      opacity,
+      zIndex,
+    };
+  });
 
   return (
     <div
-      className={`relative flex items-center justify-center min-h-[400px] bg-transparent overflow-hidden ${className}`}
+      ref={containerRef}
+      className={`relative flex items-center justify-center min-h-[400px] bg-transparent overflow-hidden touch-none ${className}`}
     >
       {/* Central Logo */}
       {!hideLogo && <Image src={logo} alt="logo" width={100} height={200} />}
 
-      {/* Orbiting Planets with 3D effect */}
+      {/* Orbiting Planets */}
       {orbitingObjects.map((planet, index) => (
         <motion.div
           key={index}
