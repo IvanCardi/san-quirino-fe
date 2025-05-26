@@ -22,6 +22,7 @@ export default async function Home() {
   const agents = (await getLeaderboard(undefined, undefined, undefined)).map(
     (a) => ({
       id: a.agent.id,
+      nickname: a.agent.nickname,
       fullName: `${a.agent.firstName} ${a.agent.lastName}`,
       imageUrl: a.agent.avatar,
       type: a.agent.type,
