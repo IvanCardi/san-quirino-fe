@@ -1,14 +1,13 @@
 import RankPointsBadge from "@/app/profile/rank-points-badge";
-import PageAnimation from "@/components/page-animation";
 import { getAgents } from "@/lib/http/getAgents";
 import { getOffice } from "@/lib/http/getOffice";
+import { getOfficeLeaderboard } from "@/lib/http/getOfficeLeaderboard";
 import { getOfficeAddress } from "@/lib/models/office";
 import { PageProps } from "@/lib/pageProps";
 import AgentsPlanets from "./agents-planets";
 import Header from "./header";
 import Info from "./info";
 import PeopleList from "./people-list";
-import { getOfficeLeaderboard } from "@/lib/http/getOfficeLeaderboard";
 
 export default async function Office(props: PageProps) {
   const officeId = (await props.params).id;
@@ -20,7 +19,7 @@ export default async function Office(props: PageProps) {
   const score = officeLeaderboard[index].score;
 
   return (
-    <PageAnimation className="flex flex-col h-full">
+    <div className="flex flex-col h-full">
       <Header cover={office.cover} logo={office.logo} />
       <div className="min-h-2" />
       <div className="relative">
@@ -47,6 +46,6 @@ export default async function Office(props: PageProps) {
       <div className="flex-grow overflow-scroll">
         <PeopleList people={agents} />
       </div>
-    </PageAnimation>
+    </div>
   );
 }

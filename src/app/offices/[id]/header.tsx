@@ -1,6 +1,5 @@
 import BackButton from "@/components/back-button";
 import CircleAvatar from "@/components/circle-avatar";
-import coverPlaceholder from "../../../../public/office_cover.png";
 
 export default function Header({
   cover,
@@ -14,8 +13,9 @@ export default function Header({
       <div
         className="min-h-[80%] rounded-b-[20px]"
         style={{
-          backgroundImage: `url(${cover ?? coverPlaceholder})`,
+          backgroundImage: `url(${cover})`,
           backgroundSize: "cover",
+          backgroundColor: "#02476B",
         }}
       ></div>
       <BackButton className="absolute top-[65px] left-10" />
