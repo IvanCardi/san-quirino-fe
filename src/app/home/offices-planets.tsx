@@ -12,7 +12,7 @@ export default function OfficesPlanets(props: { offices: Office[] }) {
       planets={props.offices}
       PlanetRender={({ planet }) => (
         <div
-          className="relative min-w-[40px] max-w-[40px] min-h-[40px] max-h-[40px] flex justify-center items-center bg-white rounded-full"
+          className="relative min-w-[40px] max-w-[40px] min-h-[40px] max-h-[40px] flex justify-center items-center bg-transparent rounded-full"
           onClick={() => router.push(`/offices/${planet.id}`)}
         >
           <img
@@ -20,13 +20,8 @@ export default function OfficesPlanets(props: { offices: Office[] }) {
             src={planet.logo}
             alt="office"
           />
-          <p className="absolute text-black uppercase font-black text-[8px]">
-            {planet.name}
-          </p>
         </div>
       )}
     ></OrbitingPlanets>
   );
 }
-
-

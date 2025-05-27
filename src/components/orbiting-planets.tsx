@@ -108,7 +108,7 @@ export default function OrbitingPlanets<T>({
             y: planet.y,
             opacity: planet.opacity,
             zIndex: planet.zIndex,
-            boxShadow: "0px 3.43px 3.43px 0px #00000040",
+            // boxShadow: "0px 3.43px 3.43px 0px #00000040",
             scale: planet.scale,
           }}
         >
