@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -6,15 +7,14 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeClosed, LoaderCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { login } from "./actions";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { Eye, EyeClosed } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email("Inserire una mail corretta"),
@@ -90,6 +90,7 @@ export default function LoginForm() {
         <Button
           className="bg-primary-green text-white font-bold text-[20px]/[20px] w-full uppercase rounded-[30px] !py-[14px] h-fit"
           type="submit"
+          disabled={form.formState.isSubmitting}
           style={{
             background: " linear-gradient(270.95deg, #092179 0%, #5195C6 100%)",
             boxShadow:
@@ -97,8 +98,8 @@ export default function LoginForm() {
           }}
         >
           Accedi
+          {form.formState.isSubmitting && <LoaderCircle className="animate-spin w-[12px] h-[12px]" />}
         </Button>
-        {/*  <Button type="submit">Aggiungi</Button> */}
       </form>
     </Form>
   );

@@ -1,18 +1,19 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import RoundedInput from "@/components/rounded-input";
 import {
+  Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-  Form,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { createNews } from "./actions";
-import RoundedInput from "@/components/rounded-input";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   firstName: z.string().min(1, "Inserisci il nome"),
@@ -106,16 +107,23 @@ export default function NotiziaForm() {
           })}
         />
         <div className="min-h-[24px]" />
-        <Button
-          className="bg-[#01377C] rounded-full py-[22px] px-13"
-          type="submit"
-          style={{
-            boxShadow:
-              "0px 4px 4px 0px #00000040, 0px -6px 4px 0px #00000040 inset",
-          }}
-        >
-          <p className="text-[20px]/[20px]">Crea notizia</p>
-        </Button>
+        <div className="w-full flex justify-center">
+          <Button
+            className="bg-primary-green text-white font-bold text-[20px]/[20px] !w-[70%] uppercase rounded-[30px] !py-[14px] h-fit"
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            style={{
+              background: " linear-gradient(270.95deg, #092179 0%, #5195C6 100%)",
+              boxShadow:
+                "0px 5px 5.8px 0px #8688F233, 0px -4px 4px 0px #00000040 inset",
+            }}
+          >
+            Crea notizia
+            {form.formState.isSubmitting && (
+              <LoaderCircle className="animate-spin w-[12px] h-[12px]" />
+            )}
+          </Button>
+        </div>
       </form>
     </Form>
   );
