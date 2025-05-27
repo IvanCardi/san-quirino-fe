@@ -8,9 +8,9 @@ export default function Info({
   manager: string;
 }) {
   return (
-    <div className="flex flex-col m-auto w-fit items-center gap-2">
+    <div className="flex flex-col w-full items-center gap-2">
       <h1 className="text-[19px]/[19px] font-bold">{name}</h1>
-      <p className="text-[15px]/[15px] font-extralight w-[70%]">{address}</p>
+      <p className="text-[15px]/[15px] font-extralight max-w-[80%] text-center">{address}</p>
       {manager ? (
         <p className="text-[15px]/[15px]">Titolare: {manager}</p>
       ) : (
