@@ -1,7 +1,6 @@
 import LeaderboardFilters from "@/components/leaderboard-filter";
 import LeaderboardHeader from "@/components/leaderboard-header";
 import LeaderboardList from "@/components/leaderboard-list";
-import PageAnimation from "@/components/page-animation";
 import TopThree from "@/components/top-three";
 import { getLeaderboard } from "@/lib/http/getLeaderboard";
 import { getOffices } from "@/lib/http/getOffices";
@@ -28,7 +27,7 @@ export default async function Leaderboard(props: PageProps) {
   const offices = await getOffices();
 
   return (
-    <PageAnimation className="flex flex-col h-full gap-6 w-full">
+    <div className="flex flex-col h-full gap-6 w-full">
       <LeaderboardHeader
         title="Leaderboard"
         subtitle="Le leggende del mese"
@@ -37,6 +36,6 @@ export default async function Leaderboard(props: PageProps) {
       <TopThree people={agents.slice(0, 3)} />
       <LeaderboardFilters offices={offices} />
       <LeaderboardList people={agents.slice(3)} />
-    </PageAnimation>
+    </div>
   );
 }
