@@ -1,5 +1,4 @@
 import ChallengeNowButton from "@/components/challenge-now";
-import PageAnimation from "@/components/page-animation";
 import {
   Drawer,
   DrawerClose,
@@ -13,10 +12,10 @@ import { getMe } from "@/lib/http/getMe";
 import { getOffices } from "@/lib/http/getOffices";
 import PushNotificationManager from "../(notifications)/notification";
 import AcceptOrDeclineChallenge from "./accept-or-decline-challenge";
+import AgentCard from "./agent-card";
 import ChallengeProgress from "./challenge-progress";
 import OfficesPlanets from "./offices-planets";
 import People from "./people";
-import AgentCard from "./agent-card";
 
 export default async function Home() {
   const agents = (await getLeaderboard(undefined, undefined, undefined)).map(
@@ -34,7 +33,7 @@ export default async function Home() {
   const offices = await getOffices();
 
   return (
-    <PageAnimation className="flex flex-col gap-6 pt-6 h-full">
+    <div className="flex flex-col gap-6 pt-6 h-full">
       <video
         className="absolute top-[-70px] left-0 w-full h-full object-cover z-[-2]"
         src="/background-loop.mp4"
@@ -84,6 +83,6 @@ export default async function Home() {
         </>
       )}
       <PushNotificationManager />
-    </PageAnimation>
+    </div>
   );
 }

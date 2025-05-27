@@ -1,8 +1,6 @@
 import PageAnimation from "@/components/page-animation";
-import PushNotificationManager from "../(notifications)/notification";
-import OfficesPlanets from "./offices-planets";
-import People from "./people";
 import { LoaderCircle } from "lucide-react";
+import People from "./people";
 
 export default function Home() {
   return (
@@ -17,8 +15,6 @@ export default function Home() {
       />
       <People people={[]} />
       <LoaderCircle className="animate-spin" />
-      <OfficesPlanets offices={[]} />
-      <PushNotificationManager />
     </PageAnimation>
   );
 }
