@@ -11,12 +11,13 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Edit2 } from "lucide-react";
+import { Bell, Edit2 } from "lucide-react";
 import Image from "next/image";
 import header from "../../../public/profile-header.png";
 import { changeAvatar } from "./actions";
 import EditNicknameForm from "./edit-nickname-form";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Header({
   photo,
@@ -92,8 +93,13 @@ export default function Header({
           )}
         </div>
       </div>
-      <BackButton className="absolute top-[65px] left-[30px]" />
-      {itsMe && <LogoutButton className="absolute top-[65px] right-[30px]" />}
+      <BackButton className="absolute top-[40px] left-[30px]" />
+      {itsMe && <LogoutButton className="absolute top-[40px] right-[30px]" />}
+      {itsMe && (
+        <Link href={"/notification-center"} className="absolute top-[80px] right-[30px] size-7 rounded-full bg-transparent border-[2px] flex justify-center items-center">
+          <Bell size={18} color="white" />
+        </Link>
+      )}
     </div>
   );
 }
