@@ -16,16 +16,6 @@ export default function AgentsPlanets(props: { agents: Agent[] }) {
           {" "}
           <CircleAvatar className="w-10 h-10" imageUrl={planet.avatar} />
         </div>
-        /*  <div
-          className="min-w-[40px] max-w-[40px] min-h-[40px] max-h-[40px] flex justify-center items-center"
-          onClick={() => router.push(`/profile?agentId=${planet.id}`)}
-        >
-          <img
-            className=" w-full object-contain"
-            src={planet.avatar}
-            alt="office"
-          />
-        </div> */
       )}
     ></OrbitingPlanets>
   );

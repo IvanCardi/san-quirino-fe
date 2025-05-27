@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 type PeopleProps = {
@@ -33,10 +34,12 @@ export function CircleAvatar({ imageUrl }: { imageUrl: string; id?: string }) {
       className="flex-shrink-0 rounded-full bg-white border-2 border-[#FFAC2D] p-1 size-[76px] relative"
       style={{ boxShadow: "0px 4px 4px 0px #00000040" }}
     >
-      <img
+      <Image
         src={imageUrl}
         alt="profile avatar image"
-        className="absolute size-[70px] right-0 top-[-7px]"
+        className="absolute right-0 top-[-7px]"
+        width={70}
+        height={70}
       />
     </div>
   );
