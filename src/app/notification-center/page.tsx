@@ -8,7 +8,7 @@ export default async function NoficationCenterPage() {
     <div className="h-full flex flex-col">
       <LeaderboardHeader
         title="Notifiche"
-        subtitle=""
+        subtitle="Le tue notifiche"
         className="bg-[#02476B]"
       />
       <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col gap-3">

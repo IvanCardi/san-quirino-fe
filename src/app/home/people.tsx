@@ -10,7 +10,7 @@ type PeopleProps = {
 
 export default function People({ people }: PeopleProps) {
   return (
-    <div className="pl-8 w-screen min-h-fit pt-2.5 pb-1 bg-[#0077B64A] rounded-l-full flex flex-nowrap gap-4 overflow-x-auto">
+    <div className="pl-8 w-screen pt-2.5 pb-1 bg-[#0077B64A] rounded-l-full flex flex-nowrap gap-4 overflow-x-auto min-h-[112px]">
       {people.map((p) => (
         <Link
           key={p.id}
