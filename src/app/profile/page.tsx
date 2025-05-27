@@ -1,4 +1,3 @@
-import PageAnimation from "@/components/page-animation";
 import { getLoggedUser } from "@/lib/getLoggedUser";
 import { getAgent } from "@/lib/http/getAgent";
 import { getAvatars } from "@/lib/http/getAvatars";
@@ -20,7 +19,7 @@ export default async function Profile({ searchParams }: PageProps) {
   const avatars = itsMe ? await getAvatars() : [];
 
   return (
-    <PageAnimation className="flex flex-col h-full gap-6">
+    <div className="flex flex-col h-full gap-6">
       <div className="h-full flex flex-col">
         <Header
           photo={agent.avatar}
@@ -61,6 +60,6 @@ export default async function Profile({ searchParams }: PageProps) {
           loggedUser?.type === agent.type &&
           !agent.challenge && <ChallengeNow agentId={agent.id} />}
       </div>
-    </PageAnimation>
+    </div>
   );
 }
