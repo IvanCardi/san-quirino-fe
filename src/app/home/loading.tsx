@@ -14,7 +14,9 @@ export default function Home() {
         playsInline
       />
       <People people={[]} />
-      <LoaderCircle className="animate-spin" />
+      <div className="flex justify-center">
+        <LoaderCircle className="animate-spin" />
+      </div>
     </PageAnimation>
   );
 }
