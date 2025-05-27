@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function CircleAvatar({
   imageUrl,
   className,
@@ -7,13 +9,17 @@ export default function CircleAvatar({
   className?: string;
 }) {
   return (
-    <div className="flex-shrink-0 rounded-full bg-white size-[76px]">
+    <div
+      className="flex-shrink-0 rounded-full bg-white size-[76px] border-[#FFAC2D] border-2 p-1"
+      style={{ boxShadow: "0px 4px 4px 0px #00000040" }}
+    >
       {imageUrl && imageUrl !== "" && (
-        <img
+        <Image
           src={imageUrl}
           alt="profile avatar image"
-          className={`rounded-full border-2 border-[#FFAC2D] p-1 size-[76px] ${className}`}
-          style={{ boxShadow: "0px 4px 4px 0px #00000040" }}
+          className={`rounded-full ${className}`}
+          width={76}
+          height={76}
         />
       )}
     </div>

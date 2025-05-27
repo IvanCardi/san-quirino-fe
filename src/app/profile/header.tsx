@@ -43,7 +43,7 @@ export default function Header({
         alt="header"
         className="w-full h-[150px] object-cover"
       ></Image>
-      <div className="absolute bottom-[-10px] flex flex-col items-center left-0 right-0 gap-2">
+      <div className="absolute top-[92.5px] flex flex-col items-center left-0 right-0 gap-1">
         {avatars.length === 0 ? (
           <CircleAvatar id="id" imageUrl={photo}></CircleAvatar>
         ) : (
